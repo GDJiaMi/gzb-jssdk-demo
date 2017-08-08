@@ -1,0 +1,41 @@
+{
+  "name": "jh-ts-react-boilerplate",
+  "version": "0.1.0",
+  "description": "typescript + react + mobx boilerplate",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tslint": "tslint -c tslint.json 'src/**/*.ts'",
+    "prettier": "prettier --single-quote --trailing-comma all --no-semi --write \"src/**/*.ts?(x)\"",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.ts?(x)": ["npm run prettier", "git add"]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carney520/jh-ts-react-boilerplate.git"
+  },
+  "keywords": ["react", "typescript", "mobx", "boilerplate"],
+  "author": "ivan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/carney520/jh-ts-react-boilerplate/issues"
+  },
+  "homepage": "https://github.com/carney520/jh-ts-react-boilerplate#readme",
+  "devDependencies": {
+    "husky": "^0.14.3",
+    "lint-staged": "^4.0.3",
+    "prettier": "^1.5.3",
+    "tslint": "next",
+    "tslint-react": "^3.2.0",
+    "typescript": "next"
+  },
+  "dependencies": {
+    "@types/react": "^16.0.1",
+    "react": "^16.0.0"
+  }
+}

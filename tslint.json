@@ -1,0 +1,182 @@
+{
+  "defaultSeverity": "error",
+  "extends": ["tslint:recommended", "tslint-react"],
+  "jsRules": {},
+  "rules": {
+    "align": [
+      true,
+      "parameters",
+      "arguments",
+      "statements",
+      "members",
+      "elements"
+    ],
+    "arrow-parens": {
+      "severity": "warning",
+      "options": ["ban-single-arg-parens"]
+    },
+    "await-promise": true,
+    "arrow-return-shorthand": true,
+    "binary-expression-operand-order": true,
+    "ban": false,
+    "class-name": true,
+    "comment-format": [true, "check-space"],
+    "completed-docs": {
+      "severity": "warning",
+      "options": [
+        {
+          "enums": true,
+          "classes": true,
+          "interfaces": true,
+          "namespaces": true
+        }
+      ]
+    },
+    "deprecation": true,
+    "encoding": true,
+    "file-header": true,
+    "import-spacing": true,
+    "import-blacklist": [true, "lodash"],
+    "curly": [true, "as-needed"],
+    "eofline": false,
+    "forin": true,
+    "forof": {
+      "severity": "warning"
+    },
+    "indent": [true, "spaces", 2],
+    "interface-name": {
+      "severity": "warning",
+      "options": ["never-prefix"]
+    },
+    "prefer-switch": [true, { "min-cases": 3 }],
+    "prefer-template": [true, "allow-single-concat"],
+    "prefer-object-spread": {
+      "severity": "warning"
+    },
+    "promise-function-async": {
+      "severity": "warning"
+    },
+    "interface-over-type-literal": {
+      "severity": "warning"
+    },
+    "jsdoc-format": true,
+    "match-default-export-name": {
+      "severity": "warning"
+    },
+    "newline-before-return": {
+      "severity": "warning"
+    },
+    "no-boolean-literal-compare": {
+      "severity": "warning"
+    },
+    "new-parens": true,
+    "jsx-no-lambda": false,
+    "jsx-no-multiline-js": false,
+    "label-position": true,
+    "max-line-length": [true, 80],
+    "max-file-line-count": [true, 500],
+    "max-classes-per-file": [true, 3],
+    "member-access": {
+      "severity": "warning"
+    },
+    "member-ordering": [
+      true,
+      "public-before-private",
+      "static-before-instance",
+      "variables-before-functions"
+    ],
+    "no-any": true,
+    "no-arg": true,
+    "no-bitwise": true,
+    "no-console": [
+      true,
+      "log",
+      "error",
+      "debug",
+      "info",
+      "time",
+      "timeEnd",
+      "trace"
+    ],
+    "no-consecutive-blank-lines": [true, 2],
+    "no-construct": true,
+    "no-debugger": true,
+    "no-duplicate-super": true,
+    "no-duplicate-variable": true,
+    "no-empty": true,
+    "no-eval": true,
+    "no-shadowed-variable": true,
+    "no-string-literal": true,
+    "no-string-throw": true,
+    "no-for-in-array": true,
+    "no-invalid-template-strings": true,
+    "no-switch-case-fall-through": true,
+    "no-trailing-whitespace": false,
+    "no-unused-expression": true,
+    "no-use-before-declare": true,
+    "no-unnecessary-type-assertion": true,
+    "no-unbound-method": {
+      "severity": "warning"
+    },
+    "no-require-imports": true,
+    "no-duplicate-imports": true,
+    "no-object-literal-type-assertion": {
+      "severity": "warning"
+    },
+    "one-line": [
+      true,
+      "check-catch",
+      "check-else",
+      "check-finally",
+      "check-open-brace",
+      "check-whitespace"
+    ],
+    "object-literal-key-quotes": [true, "as-needed"],
+    "object-literal-shorthand": true,
+    "object-literal-sort-keys": {
+      "severity": "warning"
+    },
+    "quotemark": [true, "single", "jsx-double"],
+    "radix": true,
+    "restrict-plus-operands": true,
+    "semicolon": {
+      "severity": "warning",
+      "options": "never"
+    },
+    "switch-default": {
+      "severity": "warning"
+    },
+    "typedef": [true, "parameter", "property-declaration"],
+    "typedef-whitespace": [
+      true,
+      {
+        "call-signature": "nospace",
+        "index-signature": "nospace",
+        "parameter": "nospace",
+        "property-declaration": "nospace",
+        "variable-declaration": "nospace"
+      }
+    ],
+    "unified-signatures": {
+      "severity": "warning"
+    },
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "check-format",
+      "allow-leading-underscore",
+      "allow-pascal-case"
+    ],
+    "whitespace": [
+      true,
+      "check-branch",
+      "check-decl",
+      "check-module",
+      "check-operator",
+      "check-separator",
+      "check-type",
+      "check-typecast"
+    ]
+  },
+  "rulesDirectory": []
+}
