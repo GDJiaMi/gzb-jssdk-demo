@@ -7,19 +7,31 @@
     "doc": "doc"
   },
   "scripts": {
+    "start": "cross-env NODE_ENV=development node internals/scripts/start.js",
+    "build": "cross-env NODE_ENV=production node internals/scripts/build",
+    "build:dll": "cross-env NODE_ENV=development node internals/scripts/dependencies.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tslint": "tslint -c tslint.json 'src/**/*.ts'",
     "prettier": "prettier --single-quote --trailing-comma all --no-semi --write \"src/**/*.ts?(x)\"",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "postinstall": "npm run build:dll"
   },
   "lint-staged": {
-    "*.ts?(x)": ["npm run prettier", "git add"]
+    "*.ts?(x)": [
+      "npm run prettier",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/carney520/jh-ts-react-boilerplate.git"
   },
-  "keywords": ["react", "typescript", "mobx", "boilerplate"],
+  "keywords": [
+    "react",
+    "typescript",
+    "mobx",
+    "boilerplate"
+  ],
   "author": "ivan",
   "license": "MIT",
   "bugs": {
@@ -27,15 +39,49 @@
   },
   "homepage": "https://github.com/carney520/jh-ts-react-boilerplate#readme",
   "devDependencies": {
+    "autoprefixer": "^7.1.2",
+    "case-sensitive-paths-webpack-plugin": "^2.1.1",
+    "chalk": "^2.1.0",
+    "cheerio": "^1.0.0-rc.2",
+    "cross-env": "^5.0.5",
+    "css-loader": "^0.28.4",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-loader": "^0.11.2",
+    "html-webpack-plugin": "^2.30.1",
     "husky": "^0.14.3",
     "lint-staged": "^4.0.3",
+    "object-assign": "^4.1.1",
+    "postcss-flexbugs-fixes": "^3.2.0",
+    "postcss-loader": "^2.0.6",
     "prettier": "^1.5.3",
-    "tslint": "next",
+    "react-dev-utils": "^3.0.2",
+    "react-error-overlay": "^1.0.9",
+    "shelljs": "^0.7.8",
+    "source-map-loader": "^0.2.1",
+    "style-loader": "^0.18.2",
+    "sw-precache-webpack-plugin": "^0.11.4",
+    "ts-loader": "^2.3.2",
+    "tslint": "^5.6.0",
+    "tslint-loader": "^3.5.3",
     "tslint-react": "^3.2.0",
-    "typescript": "next"
+    "typescript": "^2.4.2",
+    "url-loader": "^0.5.9",
+    "webpack": "^3.5.1",
+    "webpack-dev-server": "^2.7.1",
+    "webpack-manifest-plugin": "^1.2.1"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.72",
     "@types/react": "^16.0.1",
-    "react": "^16.0.0"
+    "@types/react-dom": "^15.5.2",
+    "lodash": "^4.17.4",
+    "react": "next",
+    "react-dom": "next"
+  },
+  "dllPlugin": {
+    "exclude": [
+      "/^@types/"
+    ],
+    "include": []
   }
 }
