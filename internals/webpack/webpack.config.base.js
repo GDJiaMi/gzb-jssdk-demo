@@ -20,34 +20,40 @@ module.exports = options => {
     devtool: options.devtool || 'cheap-module-source-map',
     entry: options.entry,
     output: options.output,
-    resolve: Object.assign(
-      {
-        // This allows you to set a fallback for where Webpack should look for modules.
-        // We placed these paths second because we want `node_modules` to "win"
-        // if there are any conflicts. This matches Node resolution mechanism.
-        // 支持以非相对路径的形式引入模块文件
-        modules: ['node_modules', paths.appNodeModules, paths.appSrc],
-        // These are the reasonable defaults supported by the Node ecosystem.
-        // We also include JSX as a common component filename extension to support
-        // some tools, although we do not recommend using it, see:
-        // https://github.com/facebookincubator/create-react-app/issues/290
-        extensions: ['.ts', '.tsx', '.js', '.json', '.jsx'],
-        alias: {
-          // Support React Native Web
-          // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
-          'react-native': 'react-native-web',
-        },
-        plugins: [
-          // Prevents users from importing files from outside of src/ (or node_modules/).
-          // This often causes confusion because we only process files within src/ with babel.
-          // To fix this, we prevent you from importing files out of src/ -- if you'd like to,
-          // please link the files into your node_modules/ and let module-resolution kick in.
-          // Make sure your source files are compiled, as they will not be processed in any way.
-          new ModuleScopePlugin(paths.appSrc),
-        ],
+    resolve: {
+      // This allows you to set a fallback for where Webpack should look for modules.
+      // We placed these paths second because we want `node_modules` to "win"
+      // if there are any conflicts. This matches Node resolution mechanism.
+      // 支持以非相对路径的形式引入模块文件
+      modules: ['node_modules', paths.appNodeModules, paths.appSrc],
+      // These are the reasonable defaults supported by the Node ecosystem.
+      // We also include JSX as a common component filename extension to support
+      // some tools, although we do not recommend using it, see:
+      // https://github.com/facebookincubator/create-react-app/issues/290
+      extensions: [
+        '.web.ts',
+        '.web.tsx',
+        '.web.js',
+        '.ts',
+        '.tsx',
+        '.js',
+        '.json',
+        '.jsx',
+      ],
+      alias: {
+        // Support React Native Web
+        // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
+        'react-native': 'react-native-web',
       },
-      options.resolve || {}
-    ),
+      plugins: [
+        // Prevents users from importing files from outside of src/ (or node_modules/).
+        // This often causes confusion because we only process files within src/ with babel.
+        // To fix this, we prevent you from importing files out of src/ -- if you'd like to,
+        // please link the files into your node_modules/ and let module-resolution kick in.
+        // Make sure your source files are compiled, as they will not be processed in any way.
+        new ModuleScopePlugin(paths.appSrc),
+      ],
+    },
     module: {
       strictExportPresence: true,
       rules: [
@@ -112,12 +118,6 @@ module.exports = options => {
             limit: 10000,
             name: 'static/media/[name].[hash:8].[ext]',
           },
-        },
-        // 编译.tsx?
-        {
-          test: /\.(ts|tsx)$/,
-          include: paths.appSrc,
-          loader: require.resolve('ts-loader'),
         },
         // ** STOP ** Are you adding a new loader?
         // Remember to add the new extension(s) to the "url" loader exclusion list.

@@ -66,6 +66,8 @@ module.exports = webpackBaseConfig({
   // This means they will be the "root" imports that are included in JS bundle.
   // The first two entry points enable "hot" CSS and auto-refreshes for JS.
   entry: [
+    // 支持react热加载
+    "react-hot-loader/patch",
     // 包含一个客户端, 用于连接到webpackDevSever, 用于支持热更新
     // 下面这行代码相当于:
     // require.resolve('webpack-dev-server/client') + '?/',
@@ -97,6 +99,16 @@ module.exports = webpackBaseConfig({
       path.resolve(info.absoluteResourcePath),
   },
   rules: [
+    // 编译.tsx?
+    {
+      test: /\.(ts|tsx)$/,
+      include: paths.appSrc,
+      loaders: [
+        require.resolve('react-hot-loader/webpack'),
+        require.resolve('awesome-typescript-loader'),
+      ],
+    },
+
     // 处理.css文件
     {
       test: /\.css$/,

@@ -69,6 +69,12 @@ module.exports = webpackBaseConfig({
       path.relative(paths.appSrc, info.absoluteResourcePath),
   },
   rules: [
+    // 编译.tsx?
+    {
+      test: /\.(ts|tsx)$/,
+      include: paths.appSrc,
+      loader: require.resolve('awesome-typescript-loader'),
+    },
     // First, run the linter.
     // It's important to do this before Typescript runs.
     // The notation here is somewhat confusing.
