@@ -79,7 +79,8 @@
   "dependencies": {
     "lodash": "^4.17.4",
     "react": "next",
-    "react-dom": "next"
+    "react-dom": "next",
+    "styled-components": "^2.1.2"
   },
   "dllPlugin": {
     "exclude": [

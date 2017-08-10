@@ -16,7 +16,11 @@
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
-    "types": ["webpack-env"]
+    "types": ["webpack-env"],
+    "baseUrl": ".",
+    "paths": {
+      "*": ["*", "src/*"]
+    }
   },
   "exclude": [
     "node_modules",

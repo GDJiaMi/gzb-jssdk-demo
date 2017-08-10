@@ -15,6 +15,7 @@
       "severity": "warning",
       "options": ["ban-single-arg-parens"]
     },
+    "adjacent-overload-signatures": true,
     "await-promise": true,
     "arrow-return-shorthand": true,
     "binary-expression-operand-order": true,
@@ -133,6 +134,7 @@
     ],
     "object-literal-key-quotes": [true, "as-needed"],
     "object-literal-shorthand": true,
+    "ordered-imports": false,
     "object-literal-sort-keys": {
       "severity": "warning"
     },
