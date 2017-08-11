@@ -15,24 +15,17 @@
     "tslint": "tslint -c tslint.json 'src/**/*.ts'",
     "prettier": "prettier --single-quote --trailing-comma all --no-semi --write \"src/**/*.ts?(x)\"",
     "precommit": "lint-staged",
+    "preinstall": "node internals/scripts/npmcheckversion",
     "postinstall": "npm run build:dll"
   },
   "lint-staged": {
-    "*.ts?(x)": [
-      "npm run prettier",
-      "git add"
-    ]
+    "*.ts?(x)": ["npm run prettier", "git add"]
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/carney520/jh-ts-react-boilerplate.git"
   },
-  "keywords": [
-    "react",
-    "typescript",
-    "mobx",
-    "boilerplate"
-  ],
+  "keywords": ["react", "typescript", "mobx", "boilerplate"],
   "author": "ivan",
   "license": "MIT",
   "bugs": {
@@ -85,9 +78,7 @@
     "styled-components": "^2.1.2"
   },
   "dllPlugin": {
-    "exclude": [
-      "/^@types/"
-    ],
+    "exclude": ["/^@types/"],
     "include": []
   }
 }
