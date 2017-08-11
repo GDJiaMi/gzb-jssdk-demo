@@ -286,14 +286,15 @@ interface To {
  */
 // BAD(member-access)
 class Member {
-  foo () {
+  foo() {
     // do somthing
   }
 }
 
-// GOOD: 始终显示设置成员的可见性
+// GOOD: 始终显式设置成员的可见性, 这样可以提醒你慎重考虑属性的可见性, 避免将因为省略描
+// 述符而将私有成员暴露出去
 class Membero {
-  public foo () {
+  public foo() {
     // do somthing
   }
 }

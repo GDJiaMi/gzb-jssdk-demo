@@ -38,7 +38,7 @@
     "file-header": true,
     "import-spacing": true,
     "import-blacklist": [true, "lodash"],
-    "curly": [true, "as-needed"],
+    "curly": true,
     "eofline": false,
     "forin": true,
     "forof": {
@@ -64,15 +64,13 @@
     "match-default-export-name": {
       "severity": "warning"
     },
-    "newline-before-return": {
-      "severity": "warning"
-    },
+    "newline-before-return": false,
     "no-boolean-literal-compare": {
       "severity": "warning"
     },
     "new-parens": true,
-    "jsx-no-lambda": false,
-    "jsx-no-multiline-js": false,
+    "jsx-wrap-multiline": false,
+    "jsx-boolean-value": [true, "never"],
     "label-position": true,
     "max-line-length": [true, 80],
     "max-file-line-count": [true, 500],
@@ -119,7 +117,7 @@
     "no-unbound-method": {
       "severity": "warning"
     },
-    "no-require-imports": true,
+    "no-require-imports": false,
     "no-duplicate-imports": true,
     "no-object-literal-type-assertion": {
       "severity": "warning"
@@ -135,9 +133,7 @@
     "object-literal-key-quotes": [true, "as-needed"],
     "object-literal-shorthand": true,
     "ordered-imports": false,
-    "object-literal-sort-keys": {
-      "severity": "warning"
-    },
+    "object-literal-sort-keys": false,
     "quotemark": [true, "single", "jsx-double"],
     "radix": true,
     "restrict-plus-operands": true,
@@ -157,6 +153,19 @@
         "parameter": "nospace",
         "property-declaration": "nospace",
         "variable-declaration": "nospace"
+      }
+    ],
+    "trailing-comma": [
+      true,
+      {
+        "multiline": {
+          "objects": "always",
+          "arrays": "always",
+          "functions": "ignore",
+          "imports": "always",
+          "exports": "always",
+          "typeLiterals": "ignore"
+        }
       }
     ],
     "unified-signatures": {
