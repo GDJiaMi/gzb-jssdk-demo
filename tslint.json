@@ -6,7 +6,6 @@
     "align": [
       true,
       "parameters",
-      "arguments",
       "statements",
       "members",
       "elements"
@@ -118,6 +117,7 @@
       "severity": "warning"
     },
     "no-require-imports": false,
+    "no-var-requires": false,
     "no-duplicate-imports": true,
     "no-object-literal-type-assertion": {
       "severity": "warning"

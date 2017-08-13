@@ -9,7 +9,7 @@ interface ComponentExports<Props> {
   default: React.ComponentType<Props>
 }
 
-export default function asyncLoad<
+export function asyncLoadComponent<
   Props,
   Exports extends ComponentExports<Props>
 >(loader: () => Promise<Exports>) {
@@ -21,5 +21,15 @@ export default function asyncLoad<
       const Component = loaded.default
       return <Component {...props} />
     },
+  })
+}
+
+export function asyncLoadStoreAndComponent<
+  Props,
+  Exports extends ComponentExports<Props>
+>(loader: () => Promise<[any, Exports]>) {
+  // tslint:disable-line:no-any
+  return asyncLoadComponent<Props, Exports>(() => {
+    return loader().then(([_, comp]) => comp)
   })
 }

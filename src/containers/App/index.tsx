@@ -2,10 +2,13 @@
  * 根组件
  */
 import * as React from 'react'
-import { Route, Link } from 'react-router-dom'
-import asyncLoad from 'utils/asyncLoad'
+import { Route, Link, withRouter, RouteComponentProps } from 'react-router-dom'
+import { observer } from 'mobx-react'
+import inject from 'utils/inject'
+import { asyncLoadComponent, asyncLoadStoreAndComponent } from 'utils/asyncLoad'
 import styled from 'utils/styled-components'
 import Button from 'components/Button'
+import AppStore from './stores/AppStore'
 
 const Container = styled.div`
   max-width: 768px;
@@ -50,7 +53,20 @@ const Footer = styled.div`
   flex-wrap: wrap;
 `
 
-export default class App extends React.Component {
+// 惰性载入组件
+const Home = asyncLoadComponent(() => import('containers/Home'))
+// 惰性载入store和组件
+const Doc = asyncLoadStoreAndComponent(() =>
+  Promise.all([import('containers/Doc/stores'), import('containers/Doc')]),
+)
+
+interface AppProps<T = {}> extends RouteComponentProps<T> {
+  AppStore: AppStore
+}
+
+@inject('AppStore', 'RouterStore')
+@observer
+class App extends React.Component<AppProps> {
   public render() {
     return (
       <Container>
@@ -67,15 +83,8 @@ export default class App extends React.Component {
           </Link>
         </Nav>
         <Main>
-          <Route
-            exact
-            path="/"
-            component={asyncLoad(() => import('containers/Home'))}
-          />
-          <Route
-            path="/doc"
-            component={asyncLoad(() => import('containers/Doc'))}
-          />
+          <Route exact path="/" component={Home} />
+          <Route path="/doc" component={Doc} />
         </Main>
         <Footer>
           <span>This project is licensed under the MIT license</span>
@@ -89,3 +98,10 @@ export default class App extends React.Component {
     )
   }
 }
+
+/**
+ * 因为App中使用了路由，而且又使用了@observer。 observer会重写shouldComponentUpdate
+ * 导致当路由变化时对应的组件没有渲染，所以这个要使用withRouter创建路由的props，从而通过
+ * shouldComponentUpdate的检验
+ */
+export default withRouter(App)

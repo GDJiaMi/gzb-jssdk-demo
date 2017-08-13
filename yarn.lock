@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@types/fbemitter@^2.0.32":
+  version "2.0.32"
+  resolved "http://registry.npm.taobao.org/@types/fbemitter/download/@types/fbemitter-2.0.32.tgz#8ed204da0f54e9c8eaec31b1eec91e25132d082c"
+
 "@types/history@*":
   version "4.6.0"
   resolved "http://registry.npm.taobao.org/@types/history/download/@types/history-4.6.0.tgz#093d67ed780d889c9543f6dca24ebee0b6b9fc45"
@@ -1949,7 +1953,13 @@ faye-websocket@~0.11.0:
   dependencies:
     websocket-driver ">=0.5.1"
 
-fbjs@^0.8.5, fbjs@^0.8.9:
+fbemitter@^2.1.1:
+  version "2.1.1"
+  resolved "http://registry.npm.taobao.org/fbemitter/download/fbemitter-2.1.1.tgz#523e14fdaf5248805bb02f62efc33be703f51865"
+  dependencies:
+    fbjs "^0.8.4"
+
+fbjs@^0.8.4, fbjs@^0.8.5, fbjs@^0.8.9:
   version "0.8.14"
   resolved "http://registry.npm.taobao.org/fbjs/download/fbjs-0.8.14.tgz#d1dbe2be254c35a91e09f31f9cd50a40b2a0ed1c"
   dependencies:
@@ -3454,6 +3464,10 @@ mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
   resolved "http://registry.npm.taobao.org/mkdirp/download/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
     minimist "0.0.8"
+
+mobx-react-router@^4.0.1:
+  version "4.0.1"
+  resolved "http://registry.npm.taobao.org/mobx-react-router/download/mobx-react-router-4.0.1.tgz#72f67b5c637d187595415500e8afa5cddb2231ab"
 
 mobx-react@^4.2.2:
   version "4.2.2"
