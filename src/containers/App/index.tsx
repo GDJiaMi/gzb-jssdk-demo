@@ -2,13 +2,15 @@
  * 根组件
  */
 import * as React from 'react'
-import { Route, Link, withRouter, RouteComponentProps } from 'react-router-dom'
+import { Route, Link, RouteComponentProps, withRouter } from 'react-router-dom'
+import { FormattedMessage } from 'react-intl'
 import { observer } from 'mobx-react'
 import inject from 'utils/inject'
 import { asyncLoadComponent, asyncLoadStoreAndComponent } from 'utils/asyncLoad'
 import styled from 'utils/styled-components'
 import Button from 'components/Button'
 import AppStore from './stores/AppStore'
+import messages from './messages'
 
 const Container = styled.div`
   max-width: 768px;
@@ -64,15 +66,16 @@ interface AppProps<T = {}> extends RouteComponentProps<T> {
   AppStore: AppStore
 }
 
-@inject('AppStore', 'RouterStore')
 @observer
-class App extends React.Component<AppProps> {
+export class App extends React.Component<AppProps> {
   public render() {
     return (
       <Container>
         <Header>
           <img src={require('assets/images/logo.jpg')} />
-          <Title>mygzb 应用组前端脚手架(模板)</Title>
+          <Title>
+            <FormattedMessage {...messages.header} />
+          </Title>
         </Header>
         <Nav>
           <Link to="/">
@@ -88,7 +91,10 @@ class App extends React.Component<AppProps> {
         </Main>
         <Footer>
           <span>This project is licensed under the MIT license</span>
-          <select>
+          <select
+            onChange={this.handleLocaleChange}
+            value={this.props.AppStore.locale}
+          >
             <option>en</option>
             <option>zh</option>
           </select>
@@ -97,6 +103,12 @@ class App extends React.Component<AppProps> {
       </Container>
     )
   }
+
+  private handleLocaleChange = (
+    event: React.ChangeEvent<{ value: string }>,
+  ) => {
+    this.props.AppStore.setLocale(event.target.value)
+  }
 }
 
 /**
@@ -104,4 +116,6 @@ class App extends React.Component<AppProps> {
  * 导致当路由变化时对应的组件没有渲染，所以这个要使用withRouter创建路由的props，从而通过
  * shouldComponentUpdate的检验
  */
-export default withRouter(App)
+export default withRouter(
+  inject<RouteComponentProps<{}>, AppProps>('AppStore')(App),
+)

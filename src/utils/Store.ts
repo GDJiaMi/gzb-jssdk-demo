@@ -46,9 +46,8 @@ export default abstract class Store {
     return StoreContainer.getInstance().once(event, callback, context)
   }
 
+  // tslint:disable-next-line:no-any
   protected emit(event: string, ...data: any[]) {
-    // tslint:disable-line:no-any
-    // tslint:disable-line:no-any
     return StoreContainer.getInstance().emit(event, ...data)
   }
 }

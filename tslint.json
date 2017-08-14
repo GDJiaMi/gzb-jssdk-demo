@@ -3,13 +3,7 @@
   "extends": ["tslint:recommended", "tslint-react"],
   "jsRules": {},
   "rules": {
-    "align": [
-      true,
-      "parameters",
-      "statements",
-      "members",
-      "elements"
-    ],
+    "align": [true, "parameters", "statements", "members", "elements"],
     "arrow-parens": {
       "severity": "warning",
       "options": ["ban-single-arg-parens"]
@@ -70,8 +64,9 @@
     "new-parens": true,
     "jsx-wrap-multiline": false,
     "jsx-boolean-value": [true, "never"],
+    "jsx-no-multiline-js": false,
     "label-position": true,
-    "max-line-length": [true, 80],
+    "max-line-length": [true, 120],
     "max-file-line-count": [true, 500],
     "max-classes-per-file": [true, 3],
     "member-access": {
@@ -101,7 +96,9 @@
     "no-debugger": true,
     "no-duplicate-super": true,
     "no-duplicate-variable": true,
-    "no-empty": true,
+    "no-empty": {
+      "severity": "warning"
+    },
     "no-eval": true,
     "no-shadowed-variable": true,
     "no-string-literal": true,

@@ -7,31 +7,57 @@ import * as ReactDOM from 'react-dom'
 import { Router } from 'react-router'
 import { AppContainer } from 'react-hot-loader'
 import { ThemeProvider } from 'utils/styled-components'
+import LanguageProvider from 'utils/LanguageProvider'
 import App from 'containers/App'
 import * as theme from './theme'
 import history from './browserHistory'
 import './store'
+import { translationMessages } from './i18n'
 
 const rootEl = document.getElementById('root')
-const render = (Component: React.ComponentClass) =>
+const render = (messages: object) => {
+  const Componenent = App as React.ComponentClass
   ReactDOM.render(
     <AppContainer>
-      <ThemeProvider theme={theme}>
-        <Router history={history}>
-          <Component />
-        </Router>
-      </ThemeProvider>
+      <Router history={history}>
+        <ThemeProvider theme={theme}>
+          <LanguageProvider messages={messages}>
+            <Componenent />
+          </LanguageProvider>
+        </ThemeProvider>
+      </Router>
     </AppContainer>,
     rootEl,
   )
-
-render(App)
+}
 
 if (module.hot) {
   module.hot.accept('containers/App', () => {
-    render(App)
+    render(translationMessages)
   })
   module.hot.accept('./theme', () => {
-    render(App)
+    render(translationMessages)
   })
+  module.hot.accept('./i18n', () => {
+    render(translationMessages)
+  })
+}
+
+// Chunked polyfill for browsers without Intl support
+if (!window.Intl) {
+  new Promise(resolve => {
+    resolve(import('intl'))
+  })
+    .then(() =>
+      Promise.all([
+        import('intl/locale-data/jsonp/en'),
+        import('intl/locale-data/jsonp/zh'),
+      ]),
+    )
+    .then(() => render(translationMessages))
+    .catch(err => {
+      throw err
+    })
+} else {
+  render(translationMessages)
 }

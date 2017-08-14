@@ -5,13 +5,15 @@ import * as React from 'react'
 import { observer } from 'mobx-react'
 import StoreContainer from './StoreContainer'
 
-export default function inject(...stores: string[]) {
-  return (Component: React.ComponentType) => {
+export default function inject<InjectorProps, Props extends InjectorProps>(
+  ...stores: string[]
+) {
+  return (Component: React.ComponentType<Props>) => {
     const componentName: string =
       Component.displayName || Component.name || 'Unkown'
 
     @observer
-    class Injector<P> extends React.Component<P> {
+    class Injector extends React.Component<InjectorProps> {
       public static displayName = `Inject-${componentName}-with-${stores.join(
         '-',
       )}`
