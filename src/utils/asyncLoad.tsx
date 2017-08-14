@@ -27,9 +27,7 @@ export function asyncLoadComponent<
 export function asyncLoadStoreAndComponent<
   Props,
   Exports extends ComponentExports<Props>
->(loader: () => Promise<[any, Exports]>) {
-  // tslint:disable-line:no-any
-  // tslint:disable-line:no-any
+>(loader: () => Promise<[object, Exports]>) {
   return asyncLoadComponent<Props, Exports>(() => {
     return loader().then(([_, comp]) => comp)
   })
