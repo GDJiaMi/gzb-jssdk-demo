@@ -7,6 +7,7 @@
     "doc": "doc"
   },
   "scripts": {
+    "generate": "plop --plopfile internals/generators/index.js",
     "start": "cross-env NODE_ENV=development node internals/scripts/start.js",
     "build": "cross-env NODE_ENV=production node internals/scripts/build",
     "build:dll": "cross-env NODE_ENV=development node internals/scripts/dependencies.js",
@@ -64,8 +65,10 @@
     "file-loader": "^0.11.2",
     "html-webpack-plugin": "^2.30.1",
     "husky": "^0.14.3",
+    "inquirer-recursive": "^0.0.5",
     "lint-staged": "^4.0.3",
     "object-assign": "^4.1.1",
+    "plop": "^1.8.0",
     "postcss-flexbugs-fixes": "^3.2.0",
     "postcss-loader": "^2.0.6",
     "prettier": "^1.5.3",

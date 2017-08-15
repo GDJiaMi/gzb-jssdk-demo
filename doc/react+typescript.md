@@ -94,7 +94,25 @@ class MyComponent extends React.Component {
 ## 声明无状态组件
 无状态组件和普通的函数类型声明没什么区别
 ```typescript
-let MyComponent = (props: { foo: string }) => {
+const MyComponent = (props: { foo: string }) => {
   return <div>{props.foo}</div>
 }
+```
+
+如果要添加`propTypes`或`defaultProps` 这些属性的话, 则需要这样定义:
+```typescript
+import * as React from 'react'
+interface Props {
+  foo: string
+}
+
+const MyComponent: React.StatelessComponent<Props> = props => {
+  return <div>{props.foo}</div>
+}
+
+MyComponent.defaultProps = {
+  foo: 'hello',
+}
+
+export default MyComponent
 ```

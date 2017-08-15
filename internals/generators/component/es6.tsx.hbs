@@ -1,0 +1,39 @@
+/**
+ * {{ pascalCase name }}
+ * {{ description }}
+ */
+import * as React from 'react'
+{{#if i18n}}
+import { FormattedMessage } from 'react-intl'
+import messages from './messages'
+{{/if}}
+
+interface Props {
+{{#if props.length}}
+  {{#each props}}
+  {{ camelCase this.name }}{{#if this.default}}?{{/if}}: {{ this.type }}
+  {{/each}}
+{{/if}}
+  className?: string
+}
+
+export default class {{ pascalCase name }} extends React.Component<Props> {
+  {{#if defaultProps.length }}
+  public static defaultProps = {
+    {{#each defaultProps }}
+    {{this.name}}: {{{this.default}}},
+    {{/each}}
+  }
+  {{/if}}
+  public render() {
+    return (
+      <div className={this.props.className}>
+        {{#if i18n}}
+        <FormattedMessage {...messages.header} />
+        {{else}}
+        hello {{ pascalCase name }}
+        {{/if}}
+      </div>
+    )
+  }
+}

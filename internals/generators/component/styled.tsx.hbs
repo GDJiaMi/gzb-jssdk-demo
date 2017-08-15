@@ -1,0 +1,36 @@
+/**
+ * {{ pascalCase name }}
+ * {{ description }}
+ */
+import * as React from 'react'
+import styled from 'utils/styled-components'
+{{#if i18n}}
+import { FormattedMessage } from 'react-intl'
+import messages from './messages'
+{{/if}}
+
+interface Props {
+{{#if props.length}}
+  {{#each props}}
+  {{ camelCase this.name }}: {{{ this.type }}}
+  {{/each}}
+{{/if}}
+  className?: string
+}
+
+const {{ pascalCase name }}: React.StatelessComponent<Props> = props =>
+  <div className={props.className}>
+    {props.children}
+  </div>
+
+{{#if defaultProps.length }}
+{{pascalCase name}}.defaultProps = {
+  {{#each defaultProps }}
+  {{this.name}}: {{{this.default}}},
+  {{/each}}
+}
+{{/if}}
+
+export default styled({{pascalCase name}})`
+  /** style here **/
+`
