@@ -1,13 +1,14 @@
 /**
- * Component Generator
+ * Container Generator
  */
 'use strict'
 
 const path = require('path')
-const fuzzy = require('fuzzy')
-const { componentExists } = require('../utils/componentExists.js')
+const { containerExists } = require('../utils/componentExists')
 const pascalCase = require('../utils/pascalCase')
-
+const resolveComponents = require('../utils/resolveComponents')
+const resolveStores = require('../utils/resolveStores')
+const fuzzy = require('fuzzy')
 const autocompleteTypes = [
   'any',
   'number',
@@ -19,50 +20,29 @@ const autocompleteTypes = [
 ]
 
 module.exports = {
-  description: '添加一个组件',
+  description: '添加一个容器',
   prompts: [
-    {
-      type: 'list',
-      name: 'type',
-      message: '选择组件类型: ',
-      default: 'stateless',
-      choices: [
-        {
-          name: '无状态组件',
-          value: 'stateless',
-        },
-        {
-          name: 'Styled Components 组件',
-          value: 'styled',
-        },
-        {
-          name: 'ES6 Class组件',
-          value: 'class',
-        },
-      ],
-    },
     {
       type: 'input',
       name: 'name',
-      message: '请输入组件名(PascalCase): ',
+      message: '请输入容器名(PascalCase): ',
       validate: value => {
         if (/.+/.test(value)) {
           value = pascalCase(value)
-          return componentExists(value) ? `这个组件已存在(${value})` : true
+          return containerExists(value) ? `这个容器已存在(${value})` : true
         }
-        return '必须输入组件名'
+        return '必须输入容器名'
       },
     },
     {
       type: 'input',
       name: 'description',
-      message: data => `请输入组件描述(默认为: ${pascalCase(data.name)}): `,
-      default: data => data.name,
+      message: '请输入容器描述: ',
       validate: value => {
         if (/.+/.test(value)) {
           return true
         }
-        return '必须输入组件描述'
+        return '必须输入容器描述'
       },
     },
     {
@@ -70,6 +50,37 @@ module.exports = {
       name: 'i18n',
       default: true,
       message: '是否支持i18n?: ',
+    },
+    {
+      type: 'confirm',
+      name: 'hasRoute',
+      default: true,
+      message: '是否包含Route?: ',
+    },
+    {
+      type: 'checkbox',
+      name: 'stores',
+      message: '选择注入的Store: ',
+      choices: resolveStores,
+    },
+    {
+      type: 'checkbox',
+      name: 'components',
+      message: '选用Component: ',
+      choices: resolveComponents,
+    },
+    {
+      type: 'input',
+      name: 'newStore',
+      message: '输入需要新建的Store, 命名格式为`FooStore`(以Store为后缀), 多个Store以空格分割: ',
+      validate: value => {
+        if (value) {
+          if (!value.endsWith('Store')) {
+            return `Store 必须以'Store'为后缀, 但是你输入的是${value}`
+          }
+        }
+        return true
+      },
     },
     {
       type: 'recursive',
@@ -123,32 +134,23 @@ module.exports = {
     },
   ],
   actions: data => {
-    let componentTemplate
+    data.defaultProps = data.props.filter(item => item.default !== '')
+    data.injectStores = data.stores.map(i => i.name).concat(data.newStore)
+    data.injectStoreAndWithRouter = data.injectStores.length && data.hasRoute
+
     const outputPath = path.resolve(
       process.cwd(),
-      `src/components/${pascalCase(data.name)}/`
+      `src/containers/${pascalCase(data.name)}/`
     )
-    switch (data.type) {
-      case 'stateless':
-        componentTemplate = path.resolve(__dirname, './stateless.js.hbs')
-        break
-      case 'styled':
-        componentTemplate = path.resolve(__dirname, './styled.tsx.hbs')
-        break
-      case 'class':
-        componentTemplate = path.resolve(__dirname, './es6.tsx.hbs')
-        break
-    }
 
     const actions = [
       {
         type: 'add',
         path: path.join(outputPath, 'index.tsx'),
-        templateFile: componentTemplate,
+        templateFile: path.resolve(__dirname, './index.tsx.hbs'),
         abortOnFail: true,
       },
     ]
-
     if (data.i18n) {
       actions.push({
         type: 'add',
@@ -158,7 +160,19 @@ module.exports = {
       })
     }
 
-    data.defaultProps = data.props.filter(item => item.default !== '')
+    if (data.newStore) {
+      actions.push({
+        type: 'add',
+        path: path.join(outputPath, 'stores/index.ts'),
+        templateFile: path.resolve(__dirname, './storeindex.ts.hbs'),
+        abortOnFail: true,
+      }, {
+        type: 'add',
+        path: path.join(outputPath, `stores/${pascalCase(data.newStore)}.ts`),
+        templateFile: path.resolve(__dirname, './store.ts.hbs'),
+        abortOnFail: true,
+      })
+    }
 
     return actions
   },

@@ -8,5 +8,5 @@ exports.componentExists = function componentExists(comp) {
 }
 
 exports.containerExists = function containerExists(comp) {
-  return containers.indexOf(comp)
+  return containers.indexOf(comp) !== -1
 }
