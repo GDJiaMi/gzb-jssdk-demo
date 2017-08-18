@@ -4,6 +4,7 @@ const path = require('path')
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin')
 const omit = require('lodash/omit')
 const paths = require('./paths')
+const svgoConfig = require('./svgo.config.json')
 
 // 这个是基本配置, development和production都会继承它
 module.exports = options => {
@@ -57,9 +58,6 @@ module.exports = options => {
     module: {
       strictExportPresence: true,
       rules: [
-        // 禁用require.ensure因为他不是一个标准的语言特性, 使用import()代替
-        { parser: { requireEnsure: false } },
-
         // 首先检查ts代码是否符合规范
         {
           test: /\.(ts|tsx)$/,
@@ -75,6 +73,8 @@ module.exports = options => {
           loader: require.resolve('source-map-loader'),
           enforce: 'pre',
           include: paths.appSrc,
+          // 禁用require.ensure因为他不是一个标准的语言特性, 使用import()代替
+          parser: { requireEnsure: false },
         },
         // ** ADDING/UPDATING LOADERS **
         // The "file" loader handles all assets unless explicitly excluded.
@@ -102,6 +102,7 @@ module.exports = options => {
             /\.gif$/,
             /\.jpe?g$/,
             /\.png$/,
+            /\.svg$/,
           ],
           loader: require.resolve('file-loader'),
           options: {
@@ -118,6 +119,26 @@ module.exports = options => {
             limit: 10000,
             name: 'static/media/[name].[hash:8].[ext]',
           },
+        },
+        // svg sprite
+        {
+          test: /\.svg$/,
+          use: [
+            {
+              loader: require.resolve('svg-sprite-loader'),
+              options: {
+                esModule: false,
+              },
+            },
+            { loader: require.resolve('svg-fill-loader') },
+            {
+              loader: require.resolve('svgo-loader'),
+              options: {
+                plugins: svgoConfig,
+              },
+            },
+          ],
+          include: paths.appSrc,
         },
         // ** STOP ** Are you adding a new loader?
         // Remember to add the new extension(s) to the "url" loader exclusion list.

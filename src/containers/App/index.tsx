@@ -9,6 +9,7 @@ import inject from 'utils/inject'
 import { asyncLoadComponent, asyncLoadStoreAndComponent } from 'utils/asyncLoad'
 import styled from 'utils/styled-components'
 import Button from 'components/Button'
+import Icon from 'components/Icon'
 import AppStore from './stores/AppStore'
 import messages from './messages'
 
@@ -46,13 +47,33 @@ const Nav = styled.div`
 `
 const Main = styled.div`flex: 1;`
 
-const Footer = styled.div`
-  width: 100%;
+const Footer = styled.div`width: 100%;`
+
+const Infos = styled.div`
   font-size: 0.8em;
   display: flex;
   justify-content: space-around;
   padding: 1em;
   flex-wrap: wrap;
+`
+
+const Socials = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`
+
+const SocialsIcon = styled(Icon)`
+  font-size: 1.5em;
+  margin: .5em;
+`
+
+const Twitter = styled(SocialsIcon)`
+  color: #1da1f2;
+`
+
+const Github = styled(SocialsIcon)`
+  color: black;
 `
 
 // 惰性载入组件
@@ -90,15 +111,25 @@ export class App extends React.Component<AppProps> {
           <Route path="/doc" component={Doc} />
         </Main>
         <Footer>
-          <span>This project is licensed under the MIT license</span>
-          <select
-            onChange={this.handleLocaleChange}
-            value={this.props.AppStore.locale}
-          >
-            <option>en</option>
-            <option>zh</option>
-          </select>
-          <span>made with love by Mygzb Web Group</span>
+          <Infos>
+            <span>This project is licensed under the MIT license</span>
+            <select
+              onChange={this.handleLocaleChange}
+              value={this.props.AppStore.locale}
+            >
+              <option>en</option>
+              <option>zh</option>
+            </select>
+            <span>made with love by Mygzb Web Group</span>
+          </Infos>
+          <Socials>
+            <a href="https://github.com/carney520" target="_blank">
+              <Github src={require('assets/icons/github.svg')} />
+            </a>
+            <a href="https://twitter.com/ivanivanivy" target="_blank">
+              <Twitter src={require('assets/icons/twitter.svg')} />
+            </a>
+          </Socials>
         </Footer>
       </Container>
     )

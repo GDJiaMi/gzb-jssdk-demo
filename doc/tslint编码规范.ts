@@ -265,6 +265,35 @@ import _ from 'lodash'
 // GOOD: 为了减少打包体积, 避免引入整个模块, 而是按需引入需要的子模块. 典型的应用就是lodash
 import findIndex from 'lodash/findIndex'
 
+// BAD
+import myIcon from 'assets/icons/github.svg'
+
+// GOOD: 为了区分静态资源和JavaScript模块, 我们使用require 来加载静态资源, 使用import来
+// 导入Javascript模块
+import Foo from './path/to/foo'
+
+// 导入静态资源
+<Icon src={require('assets/icons/myicon.svg')} />
+<img src={require('assets/images/bg.png')} />
+
+// BAD
+// container/Foo/bar.ts
+import Baz from '../../components/Baz'
+
+// GOOD: 优先使用非相对路径来导入模块, 从而避免'路径地狱'. 使用相对路径还不利于模块的移动.
+// 通过设置tsconfig.json的paths选项和webpack的resolve.modules 或resolve.alias 来实现模块查找
+// 比如将src的根目录设置为node模块的查找目录
+import Baz from 'components/Baz'
+
+// BAD
+require.ensure(['mymodule'], require => {
+  const myModule = require('mymodule')
+  // ...
+})
+
+// GOOD: 避免使用webpack提供的非标准的模块加载语法, 尽量使用ES6模块
+import('mymodule').then(module => {/*...*/})
+
 /**
  * 接口
  */

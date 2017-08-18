@@ -1,0 +1,20 @@
+[
+  { "removeTitle": true },
+  { "cleanupAttrs": true },
+  { "removeDoctype": true },
+  { "removeXMLProcInst": true },
+  { "removeComments": true },
+  { "removeMetadata": true },
+  { "removeDesc": true },
+  { "removeUselessDefs": true },
+  { "removeXMLNS": true },
+  { "removeEmptyText": true },
+  { "removeEmptyContainers": true },
+  { "minifyStyles": true },
+  { "convertPathData": true },
+  { "convertTransform": true },
+  { "mergePaths": true },
+  { "collapseGroups": true },
+  { "cleanupIDs": true },
+  { "removeUselessStrokeAndFill": true }
+]
