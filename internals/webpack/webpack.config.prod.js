@@ -73,7 +73,14 @@ module.exports = webpackBaseConfig({
     {
       test: /\.(ts|tsx)$/,
       include: paths.appSrc,
-      loader: require.resolve('awesome-typescript-loader'),
+      use: [
+        {
+          loader: require.resolve('awesome-typescript-loader'),
+          options: {
+            silent: process.argv.indexOf("--json") !== -1,
+          },
+        },
+      ],
     },
     // First, run the linter.
     // It's important to do this before Typescript runs.
