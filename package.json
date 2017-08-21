@@ -22,13 +22,21 @@
     "postinstall": "npm run build:dll"
   },
   "lint-staged": {
-    "*.ts?(x)": ["npm run prettier", "git add"]
+    "*.ts?(x)": [
+      "npm run prettier",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/carney520/jh-ts-react-boilerplate.git"
   },
-  "keywords": ["react", "typescript", "mobx", "boilerplate"],
+  "keywords": [
+    "react",
+    "typescript",
+    "mobx",
+    "boilerplate"
+  ],
   "author": "ivan",
   "license": "MIT",
   "bugs": {
@@ -62,6 +70,7 @@
     "husky": "^0.14.3",
     "inquirer-autocomplete-prompt": "^0.11.1",
     "inquirer-recursive": "^0.0.5",
+    "jh-tslint": "^1.0.0",
     "lint-staged": "^4.0.3",
     "object-assign": "^4.1.1",
     "plop": "^1.8.0",
@@ -83,6 +92,7 @@
     "svgo-loader": "^1.2.1",
     "sw-precache-webpack-plugin": "^0.11.4",
     "tslint": "^5.6.0",
+    "tslint-eslint-rules": "^4.1.1",
     "tslint-loader": "^3.5.3",
     "tslint-react": "^3.2.0",
     "typescript": "^2.4.2",
@@ -109,7 +119,10 @@
     "styled-components": "^2.1.2"
   },
   "dllPlugin": {
-    "exclude": ["/^@types/", "sanitize.css"],
+    "exclude": [
+      "/^@types/",
+      "sanitize.css"
+    ],
     "include": []
   }
 }
