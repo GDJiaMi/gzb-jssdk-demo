@@ -19,10 +19,11 @@ interface Props {
   src: SvgSprite
 }
 
-const Icon: React.StatelessComponent<Props> = props =>
+const Icon: React.StatelessComponent<Props> = props => (
   <svg className={props.className} viewBox={props.src.viewBox}>
     <use xlinkHref={`#${props.src.id}`} />
   </svg>
+)
 
 export default styled(Icon)`
   fill: currentColor;

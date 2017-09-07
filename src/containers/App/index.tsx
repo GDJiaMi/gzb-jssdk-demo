@@ -65,16 +65,12 @@ const Socials = styled.div`
 
 const SocialsIcon = styled(Icon)`
   font-size: 1.5em;
-  margin: .5em;
+  margin: 0.5em;
 `
 
-const Twitter = styled(SocialsIcon)`
-  color: #1da1f2;
-`
+const Twitter = styled(SocialsIcon)`color: #1da1f2;`
 
-const Github = styled(SocialsIcon)`
-  color: black;
-`
+const Github = styled(SocialsIcon)`color: black;`
 
 // 惰性载入组件
 const Home = asyncLoadComponent(() => import('containers/Home'))

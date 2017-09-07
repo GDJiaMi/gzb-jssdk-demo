@@ -11,20 +11,19 @@ interface ButtonProps {
   className?: string
 }
 
-const Button: React.StatelessComponent<ButtonProps> = props =>
-  <button className={props.className}>
-    {props.children}
-  </button>
+const Button: React.StatelessComponent<ButtonProps> = props => (
+  <button className={props.className}>{props.children}</button>
+)
 
 export default styled(Button)`
   background-color: ${props => props.theme.semantic[props.color || 'primary']};
   color: white;
   border: none;
   font-size: 1.05rem;
-  padding: .4em 1em;
+  padding: 0.4em 1em;
   border-radius: 1em;
   outline: none;
   &:active {
-    opacity: .6;
+    opacity: 0.6;
   }
 `
