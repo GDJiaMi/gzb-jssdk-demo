@@ -11,32 +11,25 @@
     "start": "cross-env NODE_ENV=development node internals/scripts/start.js",
     "build": "cross-env NODE_ENV=production node internals/scripts/build",
     "analyze": "cross-env NODE_ENV=production node internals/scripts/analyze",
-    "build:dll": "cross-env NODE_ENV=development node internals/scripts/dependencies.js",
+    "build:dll":
+      "cross-env NODE_ENV=development node internals/scripts/dependencies.js",
     "build:serve": "serve build/",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint:ts": "tslint -c tslint.json \"src/**/*.ts?(x)\"",
     "lint:css": "stylelint \"src/@(components|containers)/**/*.ts?(x)\"",
-    "prettier": "prettier --single-quote --trailing-comma all --no-semi --write \"src/**/*.ts?(x)\"",
+    "prettier": "prettier --config .prettierrc --write \"src/**/*.ts?(x)\"",
     "precommit": "lint-staged",
     "preinstall": "node internals/scripts/npmcheckversion",
     "postinstall": "npm run build:dll"
   },
   "lint-staged": {
-    "*.ts?(x)": [
-      "npm run prettier",
-      "git add"
-    ]
+    "*.ts?(x)": ["npm run prettier", "git add"]
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/carney520/jh-ts-react-boilerplate.git"
   },
-  "keywords": [
-    "react",
-    "typescript",
-    "mobx",
-    "boilerplate"
-  ],
+  "keywords": ["react", "typescript", "mobx", "boilerplate"],
   "author": "ivan",
   "license": "MIT",
   "bugs": {
@@ -76,7 +69,7 @@
     "plop": "^1.8.0",
     "postcss-flexbugs-fixes": "^3.2.0",
     "postcss-loader": "^2.0.6",
-    "prettier": "^1.5.3",
+    "prettier": "^1.6.1",
     "react-dev-utils": "^3.0.2",
     "react-error-overlay": "^1.0.9",
     "react-hot-loader": "next",
@@ -119,10 +112,7 @@
     "styled-components": "^2.1.2"
   },
   "dllPlugin": {
-    "exclude": [
-      "/^@types/",
-      "sanitize.css"
-    ],
+    "exclude": ["/^@types/", "sanitize.css"],
     "include": []
   }
 }

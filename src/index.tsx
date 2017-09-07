@@ -2,8 +2,8 @@
  * main
  */
 import 'global-style'
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
+import React from 'react'
+import ReactDOM from 'react-dom'
 import { Router } from 'react-router'
 import { AppContainer } from 'react-hot-loader'
 import { ThemeProvider } from 'utils/styled-components'

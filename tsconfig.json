@@ -9,6 +9,7 @@
     "jsx": "react",
     "moduleResolution": "node",
     "rootDir": "src",
+    "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -21,9 +22,8 @@
     "downlevelIteration": true,
     "typeRoots": [
       "node_modules/@types",
-      "src/typings"
+      "src/types"
     ],
-    "types": ["webpack-env"],
     "baseUrl": ".",
     "paths": {
       "*": ["*", "src/*"]
