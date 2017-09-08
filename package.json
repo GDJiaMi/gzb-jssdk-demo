@@ -11,8 +11,7 @@
     "start": "cross-env NODE_ENV=development node internals/scripts/start.js",
     "build": "cross-env NODE_ENV=production node internals/scripts/build",
     "analyze": "cross-env NODE_ENV=production node internals/scripts/analyze",
-    "build:dll":
-      "cross-env NODE_ENV=development node internals/scripts/dependencies.js",
+    "build:dll": "cross-env NODE_ENV=development node internals/scripts/dependencies.js",
     "build:serve": "serve build/",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint:ts": "tslint -c tslint.json \"src/**/*.ts?(x)\"",
@@ -23,13 +22,21 @@
     "postinstall": "npm run build:dll"
   },
   "lint-staged": {
-    "*.ts?(x)": ["npm run prettier", "git add"]
+    "*.ts?(x)": [
+      "npm run prettier",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/carney520/jh-ts-react-boilerplate.git"
   },
-  "keywords": ["react", "typescript", "mobx", "boilerplate"],
+  "keywords": [
+    "react",
+    "typescript",
+    "mobx",
+    "boilerplate"
+  ],
   "author": "ivan",
   "license": "MIT",
   "bugs": {
@@ -63,6 +70,7 @@
     "husky": "^0.14.3",
     "inquirer-autocomplete-prompt": "^0.11.1",
     "inquirer-recursive": "^0.0.5",
+    "ip": "^1.1.5",
     "jh-tslint": "^1.0.0",
     "lint-staged": "^4.0.3",
     "object-assign": "^4.1.1",
@@ -70,6 +78,7 @@
     "postcss-flexbugs-fixes": "^3.2.0",
     "postcss-loader": "^2.0.6",
     "prettier": "^1.6.1",
+    "qr-image": "^3.2.0",
     "react-dev-utils": "^3.0.2",
     "react-error-overlay": "^1.0.9",
     "react-hot-loader": "next",
@@ -95,9 +104,16 @@
     "webpack-manifest-plugin": "^1.2.1"
   },
   "dependencies": {
+    "@gdjiami/gzb-jssdk": "^1.0.0-beta",
+    "@types/highlight.js": "^9.1.10",
+    "@types/markdown-it": "^0.0.4",
+    "@types/material-ui": "^0.18.0",
     "fbemitter": "^2.1.1",
+    "highlight.js": "^9.12.0",
     "intl": "^1.2.5",
     "lodash": "^4.17.4",
+    "markdown-it": "^8.4.0",
+    "material-ui": "^0.19.1",
     "mobx": "^3.2.2",
     "mobx-react": "^4.2.2",
     "mobx-react-router": "^4.0.1",
@@ -112,7 +128,10 @@
     "styled-components": "^2.1.2"
   },
   "dllPlugin": {
-    "exclude": ["/^@types/", "sanitize.css"],
+    "exclude": [
+      "/^@types/",
+      "sanitize.css"
+    ],
     "include": []
   }
 }

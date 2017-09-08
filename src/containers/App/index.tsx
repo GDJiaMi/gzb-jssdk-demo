@@ -1,51 +1,47 @@
 /**
  * 根组件
  */
-import * as React from 'react'
-import { Route, Link, RouteComponentProps, withRouter } from 'react-router-dom'
-import { FormattedMessage } from 'react-intl'
+import React from 'react'
+import {
+  Route,
+  Link as OLink,
+  RouteComponentProps,
+  withRouter,
+} from 'react-router-dom'
+import { observable } from 'mobx'
 import { observer } from 'mobx-react'
 import inject from 'utils/inject'
 import { asyncLoadComponent, asyncLoadStoreAndComponent } from 'utils/asyncLoad'
 import styled from 'utils/styled-components'
-import Button from 'components/Button'
+import Drawer from 'material-ui/Drawer'
+import OAppBar from 'material-ui/AppBar'
+import MenuItem from 'material-ui/MenuItem'
 import Icon from 'components/Icon'
 import AppStore from './stores/AppStore'
-import messages from './messages'
+
+const Link = styled(OLink)`
+  text-decoration: none;
+  font-weight: bold;
+  color: ${props => props.theme.semantic.alert};
+`
 
 const Container = styled.div`
   max-width: 768px;
   min-height: 100%;
   margin: 0 auto;
-  padding: 0 1em;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 `
 
-const Header = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 10em;
-`
+const AppBar = styled(OAppBar)`background-color: red !important;`
 
-const Title = styled.h1`
-  color: ${props => props.theme.semantic.alert};
-  font-size: 1.3em;
+const Main = styled.div`
+  flex: 1;
+  width: 100%;
+  padding: 2em;
 `
-
-const Nav = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  & > a:not(:first-child) {
-    margin-left: 1em;
-  }
-`
-const Main = styled.div`flex: 1;`
 
 const Footer = styled.div`width: 100%;`
 
@@ -85,26 +81,35 @@ interface AppProps<T = {}> extends RouteComponentProps<T> {
 
 @observer
 export class App extends React.Component<AppProps> {
+  @observable private showDrawer: boolean = false
+  private handleLeftButtonTap = () => {
+    this.showDrawer = !this.showDrawer
+  }
+
+  // tslint:disable-next-line
   public render() {
     return (
       <Container>
-        <Header>
-          <img src={require('assets/images/logo.jpg')} />
-          <Title>
-            <FormattedMessage {...messages.header} />
-          </Title>
-        </Header>
-        <Nav>
+        <AppBar
+          title="DEMO"
+          onLeftIconButtonTouchTap={this.handleLeftButtonTap}
+        />
+        <Drawer open={this.showDrawer} openSecondary width={200}>
           <Link to="/">
-            <Button color="alert">Home</Button>
+            <MenuItem>Home</MenuItem>
           </Link>
-          <Link to="/doc">
-            <Button color="alert">Doc</Button>
+          <Link to="/set-button">
+            <MenuItem>设置标题</MenuItem>
           </Link>
-        </Nav>
+        </Drawer>
+
         <Main>
           <Route exact path="/" component={Home} />
           <Route path="/doc" component={Doc} />
+          <Route
+            path="/set-button"
+            component={asyncLoadComponent(() => import('containers/SetTitle'))}
+          />
         </Main>
         <Footer>
           <Infos>

@@ -27,6 +27,7 @@ const path = require('path')
 const paths = require('../webpack/paths');
 const config = require('../webpack/webpack.config.dev');
 const createDevServerConfig = require('../webpack/webpackDevServer.config');
+const genQrCode = require('./gen-qrcode')
 
 const useYarn = fs.existsSync(paths.yarnLockFile);
 const isInteractive = process.stdout.isTTY;
@@ -48,6 +49,7 @@ choosePort(HOST, DEFAULT_PORT)
       // We have not found a port.
       return;
     }
+    genQrCode(port)
     const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
     const appName = require(paths.appPackageJson).name;
     const urls = prepareUrls(protocol, HOST, port);

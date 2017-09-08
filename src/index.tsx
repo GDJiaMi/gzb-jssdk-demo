@@ -5,6 +5,7 @@ import 'global-style'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Router } from 'react-router'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { AppContainer } from 'react-hot-loader'
 import { ThemeProvider } from 'utils/styled-components'
 import LanguageProvider from 'utils/LanguageProvider'
@@ -21,9 +22,11 @@ const render = (messages: object) => {
     <AppContainer>
       <Router history={history}>
         <ThemeProvider theme={theme}>
-          <LanguageProvider messages={messages}>
-            <Componenent />
-          </LanguageProvider>
+          <MuiThemeProvider>
+            <LanguageProvider messages={messages}>
+              <Componenent />
+            </LanguageProvider>
+          </MuiThemeProvider>
         </ThemeProvider>
       </Router>
     </AppContainer>,
