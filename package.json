@@ -19,7 +19,8 @@
     "prettier": "prettier --config .prettierrc --write \"src/**/*.ts?(x)\"",
     "precommit": "lint-staged",
     "preinstall": "node internals/scripts/npmcheckversion",
-    "postinstall": "npm run build:dll"
+    "postinstall": "npm run build:dll",
+    "deploy": "cross-env NODE_DEBUG=gh-pages gh-pages -d build"
   },
   "lint-staged": {
     "*.ts?(x)": [
