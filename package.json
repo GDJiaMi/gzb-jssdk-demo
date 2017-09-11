@@ -1,10 +1,10 @@
 {
-  "name": "jh-ts-react-boilerplate",
+  "name": "gzb-jssdk-demo",
   "version": "0.1.0",
-  "description": "typescript + react + mobx boilerplate",
+  "description": "gzb-jssdk-demo",
   "main": "index.js",
   "directories": {
-    "doc": "doc"
+    "docs": "docs"
   },
   "scripts": {
     "generate": "plop --plopfile internals/generators/index.js",
@@ -12,7 +12,7 @@
     "build": "cross-env NODE_ENV=production node internals/scripts/build",
     "analyze": "cross-env NODE_ENV=production node internals/scripts/analyze",
     "build:dll": "cross-env NODE_ENV=development node internals/scripts/dependencies.js",
-    "build:serve": "serve build/",
+    "build:serve": "cd build && serve --open",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint:ts": "tslint -c tslint.json \"src/**/*.ts?(x)\"",
     "lint:css": "stylelint \"src/@(components|containers)/**/*.ts?(x)\"",
@@ -29,7 +29,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/carney520/jh-ts-react-boilerplate.git"
+    "url": "git+https://github.com/GDJiaMi/gzb-jssdk-demo.git"
   },
   "keywords": [
     "react",
@@ -40,9 +40,9 @@
   "author": "ivan",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/carney520/jh-ts-react-boilerplate/issues"
+    "url": "https://github.com/GDJiaMi/gzb-jssdk-demo/issues"
   },
-  "homepage": "https://github.com/carney520/jh-ts-react-boilerplate#readme",
+  "homepage": "https://gdjiami.github.io/gzb-jssdk-demo/index.html#/",
   "devDependencies": {
     "@types/fbemitter": "^2.0.32",
     "@types/lodash": "^4.14.72",
@@ -65,6 +65,7 @@
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.11.2",
     "fuzzy": "^0.1.3",
+    "gh-pages": "^1.0.0",
     "glob": "^7.1.2",
     "html-webpack-plugin": "^2.30.1",
     "husky": "^0.14.3",

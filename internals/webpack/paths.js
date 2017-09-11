@@ -29,7 +29,7 @@ const getPublicUrl = appPackageJson =>
 module.exports = {
   dotenv: resolveApp('.env'),
   dllPath: resolveApp('.temp/dlls'),
-  appBuild: resolveApp('docs'),
+  appBuild: resolveApp('build'),
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/index.html'),
   appIndexJs: resolveApp('src/index.tsx'),
