@@ -119,6 +119,12 @@ export class App extends React.Component<AppProps> {
           <Link to="/choose-image">
             <MenuItem>选择图片</MenuItem>
           </Link>
+          <Link to="/status-bar">
+            <MenuItem>状态栏</MenuItem>
+          </Link>
+          <Link to="/misc">
+            <MenuItem>杂项</MenuItem>
+          </Link>
         </Drawer>
 
         <Main>
@@ -157,6 +163,14 @@ export class App extends React.Component<AppProps> {
             component={asyncLoadComponent(() =>
               import('containers/ChooseImage'),
             )}
+          />
+          <Route
+            path="/status-bar"
+            component={asyncLoadComponent(() => import('containers/StatusBar'))}
+          />
+          <Route
+            path="/misc"
+            component={asyncLoadComponent(() => import('containers/Misc'))}
           />
         </Main>
         <Footer>
