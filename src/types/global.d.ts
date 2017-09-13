@@ -2,6 +2,10 @@ interface Window {
   Intl: object
 }
 
+interface Array<T> {
+  replace(arr: T[]): void
+}
+
 declare module 'intl' {
   const polyfill: object
   export = polyfill

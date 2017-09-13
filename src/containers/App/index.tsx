@@ -98,8 +98,26 @@ export class App extends React.Component<AppProps> {
           <Link to="/">
             <MenuItem>Home</MenuItem>
           </Link>
-          <Link to="/set-button">
+          <Link to="/set-title">
             <MenuItem>设置标题</MenuItem>
+          </Link>
+          <Link to="/phone">
+            <MenuItem>拨打手机/发送信息/邮件</MenuItem>
+          </Link>
+          <Link to="/location-to">
+            <MenuItem>导航</MenuItem>
+          </Link>
+          <Link to="/contact">
+            <MenuItem>联系人</MenuItem>
+          </Link>
+          <Link to="/session">
+            <MenuItem>会话</MenuItem>
+          </Link>
+          <Link to="/qrcode">
+            <MenuItem>扫码</MenuItem>
+          </Link>
+          <Link to="/choose-image">
+            <MenuItem>选择图片</MenuItem>
           </Link>
         </Drawer>
 
@@ -107,8 +125,38 @@ export class App extends React.Component<AppProps> {
           <Route exact path="/" component={Home} />
           <Route path="/doc" component={Doc} />
           <Route
-            path="/set-button"
+            path="/set-title"
             component={asyncLoadComponent(() => import('containers/SetTitle'))}
+          />
+          <Route
+            path="/phone"
+            component={asyncLoadComponent(() => import('containers/Phone'))}
+          />
+          <Route
+            path="/location-to"
+            component={asyncLoadComponent(() =>
+              import('containers/LocationTo'),
+            )}
+          />
+          <Route
+            path="/contact"
+            component={asyncLoadComponent(() =>
+              import('containers/ShowContact'),
+            )}
+          />
+          <Route
+            path="/session"
+            component={asyncLoadComponent(() => import('containers/Session'))}
+          />
+          <Route
+            path="/qrcode"
+            component={asyncLoadComponent(() => import('containers/QRCode'))}
+          />
+          <Route
+            path="/choose-image"
+            component={asyncLoadComponent(() =>
+              import('containers/ChooseImage'),
+            )}
           />
         </Main>
         <Footer>
