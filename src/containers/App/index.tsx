@@ -5,7 +5,7 @@ import React from 'react'
 import { Route, RouteComponentProps, withRouter } from 'react-router-dom'
 import { observer } from 'mobx-react'
 import inject from 'utils/inject'
-import { asyncLoadComponent, asyncLoadStoreAndComponent } from 'utils/asyncLoad'
+import { asyncLoadComponent } from 'utils/asyncLoad'
 import styled from 'utils/styled-components'
 import Icon from 'components/Icon'
 import StatusBar from './StatusBar'
@@ -54,11 +54,6 @@ const Github = styled(SocialsIcon)`color: black;`
 
 // 惰性载入组件
 const Home = asyncLoadComponent(() => import('containers/Home'))
-// 惰性载入store和组件
-const Doc = asyncLoadStoreAndComponent(() =>
-  Promise.all([import('containers/Doc/stores'), import('containers/Doc')]),
-)
-
 interface AppProps<T = {}> extends RouteComponentProps<T> {
   AppStore: AppStore
 }
@@ -71,7 +66,6 @@ export class App extends React.Component<AppProps> {
         <StatusBar />
         <Main>
           <Route exact path="/" component={Home} />
-          <Route path="/doc" component={Doc} />
           <Route
             path="/set-title"
             component={asyncLoadComponent(() => import('containers/SetTitle'))}

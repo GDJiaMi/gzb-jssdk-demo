@@ -10,6 +10,7 @@ import { observable } from 'mobx'
 import Code from 'components/Code'
 import H2 from 'components/H2'
 import DemoSection from 'components/DemoSection'
+import Platforms from 'components/Platforms'
 import TextField from 'material-ui/TextField'
 import SelectField from 'material-ui/SelectField'
 import RaisedButton from 'material-ui/RaisedButton'
@@ -48,7 +49,9 @@ export default class ChooseImage extends React.Component<Props> {
         <Helmet>
           <title>选择图片</title>
         </Helmet>
-        <H2>选择图片</H2>
+        <H2>
+          选择图片<Platforms pc ios android />
+        </H2>
         <DemoSection>
           <TextField
             hintText="图片质量"
@@ -104,6 +107,9 @@ export default class ChooseImage extends React.Component<Props> {
               </li>
             </ul>
           )}
+        </DemoSection>
+        <DemoSection>
+          <input type="file" />
         </DemoSection>
         <DemoSection>
           <H2>示例代码</H2>

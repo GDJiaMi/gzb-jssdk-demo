@@ -10,6 +10,7 @@ import { observable } from 'mobx'
 import Code from 'components/Code'
 import H2 from 'components/H2'
 import DemoSection from 'components/DemoSection'
+import Platforms from 'components/Platforms'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import api from '@gdjiami/gzb-jssdk'
@@ -29,7 +30,9 @@ export default class SetTitle extends React.Component<Props> {
         <Helmet>
           <title>setTitle</title>
         </Helmet>
-        <H2>设置标题</H2>
+        <H2>
+          设置标题 <Platforms ios android pc />
+        </H2>
         <DemoSection>
           <TextField
             hintText="输入标题"

@@ -8,7 +8,6 @@ import Drawer from 'material-ui/Drawer'
 import OAppBar from 'material-ui/AppBar'
 import MenuItem from 'material-ui/MenuItem'
 import styled from 'utils/styled-components'
-import { Device } from '@gdjiami/gzb-jssdk'
 import { Link as _Link, LinkProps } from 'react-router-dom'
 
 // tslint:disable:jsx-no-lambda
@@ -81,11 +80,9 @@ export default class StatusBar extends React.Component {
           <Link to="/get-location">
             <MenuItem>获取当前位置</MenuItem>
           </Link>
-          {!Device.desktop() && (
-            <Link to="/status-bar">
-              <MenuItem>状态栏</MenuItem>
-            </Link>
-          )}
+          <Link to="/status-bar">
+            <MenuItem>状态栏</MenuItem>
+          </Link>
           <Link to="/events">
             <MenuItem>事件</MenuItem>
           </Link>

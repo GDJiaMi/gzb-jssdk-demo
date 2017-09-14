@@ -10,6 +10,7 @@ import { observable } from 'mobx'
 import Code from 'components/Code'
 import H2 from 'components/H2'
 import DemoSection from 'components/DemoSection'
+import Platforms from 'components/Platforms'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
@@ -43,7 +44,9 @@ export default class Session extends React.Component<Props> {
         <Helmet>
           <title>会话</title>
         </Helmet>
-        <H2>会话选择器</H2>
+        <H2>
+          会话选择器<Platforms android ios pc />
+        </H2>
         <DemoSection>
           <Toggle
             label="多选"
@@ -94,7 +97,9 @@ api(true, '选择会话')
           `}
           </Code>
         </DemoSection>
-        <H2>会话</H2>
+        <H2>
+          打开会话<Platforms android ios pc />
+        </H2>
         <DemoSection>
           <TextField
             hintText="输入用户id"

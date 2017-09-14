@@ -9,6 +9,7 @@ import styled from 'utils/styled-components'
 import { observable } from 'mobx'
 import Code from 'components/Code'
 import H2 from 'components/H2'
+import Platforms from 'components/Platforms'
 import DemoSection from 'components/DemoSection'
 import TextField from 'material-ui/TextField'
 import _Toggle from 'material-ui/Toggle'
@@ -46,7 +47,9 @@ export default class SetTitle extends React.Component<Props> {
         <Helmet>
           <title>GetLocation</title>
         </Helmet>
-        <H2>获取当前位置</H2>
+        <H2>
+          获取当前位置<Platforms android ios pc />
+        </H2>
         <DemoSection>
           <Toggle
             label="preferNative(优先调用原生方法)"

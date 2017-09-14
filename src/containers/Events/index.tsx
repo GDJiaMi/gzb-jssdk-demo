@@ -8,6 +8,7 @@ import { Helmet } from 'react-helmet'
 import styled from 'utils/styled-components'
 import Code from 'components/Code'
 import H2 from 'components/H2'
+import Platforms from 'components/Platforms'
 import DemoSection from 'components/DemoSection'
 // import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
@@ -36,7 +37,9 @@ export default class SetTitle extends React.Component<Props> {
         <Helmet>
           <title>events</title>
         </Helmet>
-        <H2>关闭按钮事件</H2>
+        <H2>
+          关闭按钮事件<Platforms pc ios android />
+        </H2>
         <DemoSection>
           <Button label="订阅关闭按钮事件" onClick={this.setupBeforeunload} />
           <Button label="取消订阅关闭按钮事件" onClick={this.teardownBeforeunload} />
@@ -72,7 +75,9 @@ api.addListener('beforeunload', (event) => {
           `}
           </Code>
         </DemoSection>
-        <H2>返回按钮事件</H2>
+        <H2>
+          返回按钮事件<Platforms ios android />
+        </H2>
         <DemoSection>
           <Button label="订阅订阅返回按钮事件" onClick={this.setupBeforegoback} />
           <Button label="取消订阅返回按钮事件" onClick={this.teardownBeforegoback} />

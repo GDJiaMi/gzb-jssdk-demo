@@ -8,6 +8,7 @@ import { Helmet } from 'react-helmet'
 import { observable } from 'mobx'
 import Code from 'components/Code'
 import H2 from 'components/H2'
+import Platforms from 'components/Platforms'
 import DemoSection from 'components/DemoSection'
 import RaisedButton from 'material-ui/RaisedButton'
 import api, { QRCodeResponse } from '@gdjiami/gzb-jssdk'
@@ -25,7 +26,9 @@ export default class ScanQRCode extends React.Component<Props> {
         <Helmet>
           <title>QRCode</title>
         </Helmet>
-        <H2>扫码</H2>
+        <H2>
+          扫码<Platforms android ios pc />
+        </H2>
         <DemoSection>
           <RaisedButton label="扫码" onClick={this.scan} />
           <br />

@@ -9,6 +9,7 @@ import styled from 'utils/styled-components'
 import { observable } from 'mobx'
 import Code from 'components/Code'
 import H2 from 'components/H2'
+import Platforms from 'components/Platforms'
 import DemoSection from 'components/DemoSection'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
@@ -23,6 +24,7 @@ interface Props {
 @observer
 export default class Phone extends React.Component<Props> {
   @observable private value: string = '13750007059'
+  @observable private phone: string = '13750007059'
   @observable private email: string = 'gq-li@mygzb.com'
   public render() {
     return (
@@ -30,7 +32,9 @@ export default class Phone extends React.Component<Props> {
         <Helmet>
           <title>phone</title>
         </Helmet>
-        <H2>拨打电话/信息</H2>
+        <H2>
+          拨打电话/信息<Platforms pc android ios />
+        </H2>
         <DemoSection>
           <TextField
             hintText="输入手机号码"
@@ -38,8 +42,22 @@ export default class Phone extends React.Component<Props> {
             onChange={this.handleChange}
           />
           <Button label="拨打" onClick={this.call} />
+        </DemoSection>
+        <DemoSection>
+          <H2>
+            发送短信<Platforms android ios />
+          </H2>
+          <TextField
+            hintText="输入手机号码"
+            value={this.phone}
+            onChange={this.handlePhoneChange}
+          />
           <Button label="发送短信" onClick={this.send} />
-          <br />
+        </DemoSection>
+        <DemoSection>
+          <H2>
+            发送邮件<Platforms pc android ios />
+          </H2>
           <TextField
             hintText="输入邮箱地址"
             value={this.email}
@@ -72,6 +90,10 @@ api.mail('gq-li@mygzb.com')
     this.value = evt.target.value
   }
 
+  private handlePhoneChange = (evt: React.ChangeEvent<{ value: string }>) => {
+    this.phone = evt.target.value
+  }
+
   private handleEmailChange = (evt: React.ChangeEvent<{ value: string }>) => {
     this.email = evt.target.value
   }
@@ -81,7 +103,7 @@ api.mail('gq-li@mygzb.com')
   }
 
   private send = () => {
-    api().sms(this.value)
+    api().sms(this.phone)
   }
 
   private sendEmail = () => {

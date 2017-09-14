@@ -10,6 +10,7 @@ import { observer } from 'mobx-react'
 import Code from 'components/Code'
 import H2 from 'components/H2'
 import DemoSection from 'components/DemoSection'
+import Platforms from 'components/Platforms'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import api, { SelectContactResponse } from '@gdjiami/gzb-jssdk'
@@ -30,7 +31,9 @@ export default class ShowContact extends React.Component<Props> {
         <Helmet>
           <title>联系人</title>
         </Helmet>
-        <H2>打开名片</H2>
+        <H2>
+          打开名片<Platforms android ios pc />
+        </H2>
         <DemoSection>
           <TextField
             hintText="输入用户id"
@@ -51,7 +54,9 @@ api.showContact(userId)
           `}
           </Code>
         </DemoSection>
-        <H2>联系人选择器</H2>
+        <H2>
+          联系人选择器<Platforms android ios pc />
+        </H2>
         <DemoSection>
           <Button label="打开" onClick={this.openContactSelector} />
           <p>

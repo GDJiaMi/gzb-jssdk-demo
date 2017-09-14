@@ -10,6 +10,7 @@ import { observable } from 'mobx'
 import Code from 'components/Code'
 import H2 from 'components/H2'
 import DemoSection from 'components/DemoSection'
+import Platforms from 'components/Platforms'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import api from '@gdjiami/gzb-jssdk'
@@ -29,7 +30,9 @@ export default class LocationTo extends React.Component<Props> {
         <Helmet>
           <title>setTitle</title>
         </Helmet>
-        <H2>打开指定链接</H2>
+        <H2>
+          打开指定链接 <Platforms pc android ios />
+        </H2>
         <DemoSection>
           <p>当showModel为outer时使用系统浏览器打开指定链接，当showModel为inner时在应用内打开</p>
           <TextField

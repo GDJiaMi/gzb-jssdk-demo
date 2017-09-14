@@ -9,10 +9,11 @@ import styled from 'utils/styled-components'
 import { observable } from 'mobx'
 import Code from 'components/Code'
 import H2 from 'components/H2'
+import Platforms from 'components/Platforms'
 import DemoSection from 'components/DemoSection'
 import TextField from 'material-ui/TextField'
 import _Button from 'material-ui/RaisedButton'
-import Api, { MobileApi } from '@gdjiami/gzb-jssdk'
+import Api, { MobileApi, Device } from '@gdjiami/gzb-jssdk'
 
 const Button = styled(_Button)`margin-bottom: 0.4em;`
 
@@ -24,17 +25,23 @@ interface Props {
 
 @observer
 export default class StatusBar extends React.Component<Props> {
-  @observable private backButton: boolean = api.getBackButtonVisible()
-  @observable private closeButton: boolean = api.getCloseButtonVisible()
-  @observable private moreButton: boolean = api.getMoreButtonVisible()
+  @observable private backButton: boolean
+  @observable private closeButton: boolean
+  @observable private moreButton: boolean
   @observable private color: string = '#000'
+  public constructor(props: object) {
+    super(props)
+    this.initialState()
+  }
   public render() {
     return (
       <div className={this.props.className}>
         <Helmet>
           <title>状态栏</title>
         </Helmet>
-        <H2>隐藏和显示状态栏</H2>
+        <H2>
+          隐藏和显示状态栏<Platforms ios android />
+        </H2>
         <DemoSection>
           <Button label="显示" onClick={this.show} />
           <br />
@@ -56,7 +63,9 @@ api.hideBar()
           </Code>
         </DemoSection>
 
-        <H2>隐藏和显示状态栏按钮</H2>
+        <H2>
+          隐藏和显示状态栏按钮<Platforms ios android />
+        </H2>
         <DemoSection>
           <Button
             label={`显示/隐藏返回按钮${this.backButton}`}
@@ -98,7 +107,9 @@ api.getMoreButtonVisible()
           </Code>
         </DemoSection>
         <DemoSection>
-          <H2>设置状态栏颜色</H2>
+          <H2>
+            设置状态栏颜色<Platforms ios android />
+          </H2>
           <TextField
             hintText="输入颜色值(#hex格式)"
             value={this.color}
@@ -129,6 +140,14 @@ api.setBarColor('#FFF')
         </DemoSection>
       </div>
     )
+  }
+
+  private initialState() {
+    if (Device.mobile()) {
+      this.backButton = api.getBackButtonVisible()
+      this.closeButton = api.getCloseButtonVisible()
+      this.moreButton = api.getMoreButtonVisible()
+    }
   }
 
   private handleColorChange = (evt: React.ChangeEvent<{ value: string }>) => {
