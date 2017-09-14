@@ -2,29 +2,14 @@
  * 根组件
  */
 import React from 'react'
-import {
-  Route,
-  Link as OLink,
-  RouteComponentProps,
-  withRouter,
-} from 'react-router-dom'
-import { observable } from 'mobx'
+import { Route, RouteComponentProps, withRouter } from 'react-router-dom'
 import { observer } from 'mobx-react'
 import inject from 'utils/inject'
 import { asyncLoadComponent, asyncLoadStoreAndComponent } from 'utils/asyncLoad'
 import styled from 'utils/styled-components'
-import Drawer from 'material-ui/Drawer'
-import OAppBar from 'material-ui/AppBar'
-import MenuItem from 'material-ui/MenuItem'
 import Icon from 'components/Icon'
-import { Device } from '@gdjiami/gzb-jssdk'
+import StatusBar from './StatusBar'
 import AppStore from './stores/AppStore'
-
-const Link = styled(OLink)`
-  text-decoration: none;
-  font-weight: bold;
-  color: ${props => props.theme.semantic.alert};
-`
 
 const Container = styled.div`
   max-width: 768px;
@@ -35,8 +20,6 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 `
-
-const AppBar = styled(OAppBar)`background-color: red !important;`
 
 const Main = styled.div`
   flex: 1;
@@ -82,60 +65,10 @@ interface AppProps<T = {}> extends RouteComponentProps<T> {
 
 @observer
 export class App extends React.Component<AppProps> {
-  @observable private showDrawer: boolean = false
-  private handleLeftButtonTap = () => {
-    this.showDrawer = !this.showDrawer
-  }
-
-  // tslint:disable-next-line
   public render() {
     return (
       <Container>
-        <AppBar
-          title="DEMO"
-          onLeftIconButtonTouchTap={this.handleLeftButtonTap}
-        />
-        <Drawer open={this.showDrawer} openSecondary width={200}>
-          <Link to="/">
-            <MenuItem>Home</MenuItem>
-          </Link>
-          <Link to="/set-title">
-            <MenuItem>设置标题</MenuItem>
-          </Link>
-          <Link to="/phone">
-            <MenuItem>拨打手机/发送信息/邮件</MenuItem>
-          </Link>
-          <Link to="/location-to">
-            <MenuItem>导航</MenuItem>
-          </Link>
-          <Link to="/contact">
-            <MenuItem>联系人</MenuItem>
-          </Link>
-          <Link to="/session">
-            <MenuItem>会话</MenuItem>
-          </Link>
-          <Link to="/qrcode">
-            <MenuItem>扫码</MenuItem>
-          </Link>
-          <Link to="/choose-image">
-            <MenuItem>选择图片</MenuItem>
-          </Link>
-          <Link to="/get-location">
-            <MenuItem>获取当前位置</MenuItem>
-          </Link>
-          {!Device.desktop() && (
-            <Link to="/status-bar">
-              <MenuItem>状态栏</MenuItem>
-            </Link>
-          )}
-          <Link to="/events">
-            <MenuItem>事件</MenuItem>
-          </Link>
-          <Link to="/misc">
-            <MenuItem>杂项</MenuItem>
-          </Link>
-        </Drawer>
-
+        <StatusBar />
         <Main>
           <Route exact path="/" component={Home} />
           <Route path="/doc" component={Doc} />
