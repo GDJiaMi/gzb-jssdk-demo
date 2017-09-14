@@ -10,7 +10,7 @@ import { observable } from 'mobx'
 import Code from 'components/Code'
 import H2 from 'components/H2'
 import DemoSection from 'components/DemoSection'
-// import TextField from 'material-ui/TextField'
+import TextField from 'material-ui/TextField'
 import _Button from 'material-ui/RaisedButton'
 import Api, { MobileApi } from '@gdjiami/gzb-jssdk'
 
@@ -27,6 +27,7 @@ export default class StatusBar extends React.Component<Props> {
   @observable private backButton: boolean = api.getBackButtonVisible()
   @observable private closeButton: boolean = api.getCloseButtonVisible()
   @observable private moreButton: boolean = api.getMoreButtonVisible()
+  @observable private color: string = '#000'
   public render() {
     return (
       <div className={this.props.className}>
@@ -97,10 +98,45 @@ api.getMoreButtonVisible()
           </Code>
         </DemoSection>
         <DemoSection>
+          <H2>设置状态栏颜色</H2>
+          <TextField
+            hintText="输入颜色值(#hex格式)"
+            value={this.color}
+            onChange={this.handleColorChange}
+          />
+          <Button
+            label="设置颜色"
+            onClick={this.setColor}
+            labelColor={this.color}
+          />
+          <br />
+        </DemoSection>
+        <DemoSection>
+          <H2>示例代码</H2>
+          <Code>
+            {`
+\`\`\`typescript
+import Api from '@gdjiami/gzb-jssdk'
+// 这些接口只在移动端有效
+const api = Api() as MobileApi
+api.setBarColor('#FFF')
+\`\`\`
+          `}
+          </Code>
+        </DemoSection>
+        <DemoSection>
           <H2>文档</H2>
         </DemoSection>
       </div>
     )
+  }
+
+  private handleColorChange = (evt: React.ChangeEvent<{ value: string }>) => {
+    this.color = evt.target.value
+  }
+
+  private setColor = () => {
+    api.setBarColor(this.color)
   }
 
   private show = () => {

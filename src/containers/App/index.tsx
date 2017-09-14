@@ -17,6 +17,7 @@ import Drawer from 'material-ui/Drawer'
 import OAppBar from 'material-ui/AppBar'
 import MenuItem from 'material-ui/MenuItem'
 import Icon from 'components/Icon'
+import { Device } from '@gdjiami/gzb-jssdk'
 import AppStore from './stores/AppStore'
 
 const Link = styled(OLink)`
@@ -119,8 +120,16 @@ export class App extends React.Component<AppProps> {
           <Link to="/choose-image">
             <MenuItem>选择图片</MenuItem>
           </Link>
-          <Link to="/status-bar">
-            <MenuItem>状态栏</MenuItem>
+          <Link to="/get-location">
+            <MenuItem>获取当前位置</MenuItem>
+          </Link>
+          {!Device.desktop() && (
+            <Link to="/status-bar">
+              <MenuItem>状态栏</MenuItem>
+            </Link>
+          )}
+          <Link to="/events">
+            <MenuItem>事件</MenuItem>
           </Link>
           <Link to="/misc">
             <MenuItem>杂项</MenuItem>
@@ -165,12 +174,22 @@ export class App extends React.Component<AppProps> {
             )}
           />
           <Route
+            path="/get-location"
+            component={asyncLoadComponent(() =>
+              import('containers/GetLocation'),
+            )}
+          />
+          <Route
             path="/status-bar"
             component={asyncLoadComponent(() => import('containers/StatusBar'))}
           />
           <Route
             path="/misc"
             component={asyncLoadComponent(() => import('containers/Misc'))}
+          />
+          <Route
+            path="/events"
+            component={asyncLoadComponent(() => import('containers/Events'))}
           />
         </Main>
         <Footer>
