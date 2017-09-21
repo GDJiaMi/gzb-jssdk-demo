@@ -7,6 +7,7 @@ import { observer } from 'mobx-react'
 import Drawer from 'material-ui/Drawer'
 import OAppBar from 'material-ui/AppBar'
 import MenuItem from 'material-ui/MenuItem'
+import Divider from 'material-ui/Divider'
 import styled from 'utils/styled-components'
 import { Link as _Link, LinkProps } from 'react-router-dom'
 
@@ -88,6 +89,16 @@ export default class StatusBar extends React.Component {
           </Link>
           <Link to="/misc">
             <MenuItem>杂项</MenuItem>
+          </Link>
+          <Divider />
+          <Link to="/preview-img">
+            <MenuItem>(exp)图片预览</MenuItem>
+          </Link>
+          <Link to="/open-file">
+            <MenuItem>(exp)打开文件</MenuItem>
+          </Link>
+          <Link to="/request-permission">
+            <MenuItem>(exp)权限请求</MenuItem>
           </Link>
         </Drawer>
       </Container>

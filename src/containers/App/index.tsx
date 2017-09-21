@@ -118,6 +118,22 @@ export class App extends React.Component<AppProps> {
             path="/events"
             component={asyncLoadComponent(() => import('containers/Events'))}
           />
+          <Route
+            path="/preview-img"
+            component={asyncLoadComponent(() =>
+              import('containers/PreviewImg'),
+            )}
+          />
+          <Route
+            path="/open-file"
+            component={asyncLoadComponent(() => import('containers/OpenFile'))}
+          />
+          <Route
+            path="/request-permission"
+            component={asyncLoadComponent(() =>
+              import('containers/RequestPermission'),
+            )}
+          />
         </Main>
         <Footer>
           <Infos>

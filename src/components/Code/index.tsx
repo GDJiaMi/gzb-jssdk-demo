@@ -28,11 +28,7 @@ interface Props {
   children: string
 }
 
-export default class Code extends React.Component<Props> {
-  public shouldComponentUpdate() {
-    return false
-  }
-
+export default class Code extends React.PureComponent<Props> {
   public render() {
     const html = { __html: md.render(this.props.children) }
     return <div dangerouslySetInnerHTML={html} />
