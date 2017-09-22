@@ -157,9 +157,11 @@ api.setTitle('value')
       url: toJS(this.previewImages),
       index: this.activeImage,
     }
+    console.log('previewImg 请求参数', payload)
     api().setUpBridge(bridge => {
       bridge.callHandler('previewImg', payload, res => {
         this.previewImgRes = res
+        console.log('previewImg 响应参数', res)
       })
     })
   }

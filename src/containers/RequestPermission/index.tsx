@@ -44,7 +44,7 @@ export default class RequestPermission extends React.Component<Props> {
           <title>request permission</title>
         </Helmet>
         <H2>
-          权限请求 <Platforms android />
+          权限请求(requestPermissionAndroid) <Platforms android />
         </H2>
         <DemoSection>
           <Checkbox
@@ -101,8 +101,10 @@ api.setTitle('value')
   }
 
   private request = () => {
+    console.log('requestPermissionAndroid 请求参数', this.params)
     api().setUpBridge(bridge => {
       bridge.callHandler('requestPermissionAndroid', this.params, res => {
+        console.log('requestPermissionAndroid 响应参数', this.params)
         this.res = res
       })
     })

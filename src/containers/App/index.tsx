@@ -134,6 +134,10 @@ export class App extends React.Component<AppProps> {
               import('containers/RequestPermission'),
             )}
           />
+          <Route
+            path="/menu-item"
+            component={asyncLoadComponent(() => import('containers/MoreMenu'))}
+          />
         </Main>
         <Footer>
           <Infos>

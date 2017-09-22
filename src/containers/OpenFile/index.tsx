@@ -29,7 +29,7 @@ export default class OpenFile extends React.Component<Props> {
           <title>setTitle</title>
         </Helmet>
         <H2>
-          打开文件 <Platforms pc />
+          打开文件(openFile) <Platforms pc />
         </H2>
         <DemoSection>
           <TextField
@@ -43,7 +43,7 @@ export default class OpenFile extends React.Component<Props> {
             {`
 \`\`\`json
 {
-  "url": ${this.value}
+  "url": "${this.value}"
 }
 \`\`\` `}
           </Code>
@@ -87,9 +87,12 @@ api.setTitle('value')
   }
 
   private open = () => {
+    const params = { url: this.value }
+    console.log('openFile 请求参数', params)
     api().setUpBridge(bridge => {
-      bridge.callHandler('openFile', { url: this.value }, res => {
+      bridge.callHandler('openFile', params, res => {
         this.res = res
+        console.log('openFile 响应参数', res)
       })
     })
   }
