@@ -104,7 +104,7 @@ api.setTitle('value')
     console.log('requestPermissionAndroid 请求参数', this.params)
     api().setUpBridge(bridge => {
       bridge.callHandler('requestPermissionAndroid', this.params, res => {
-        console.log('requestPermissionAndroid 响应参数', this.params)
+        console.log('requestPermissionAndroid 响应参数', res)
         this.res = res
       })
     })

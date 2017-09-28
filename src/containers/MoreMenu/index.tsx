@@ -17,6 +17,7 @@ import MenuItem from 'material-ui/MenuItem'
 import Checkbox from 'material-ui/Checkbox'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
+import { parse } from 'utils/common'
 import api from '@gdjiami/gzb-jssdk'
 
 const Button = styled(RaisedButton)`margin-left: 1em;`
@@ -82,6 +83,9 @@ export default class MoreMenu extends React.Component<Props> {
             )
           })}
         </ul>
+        {!!this.addedButton.length && (
+          <Button label="移除所有按钮" onClick={this.removeAllMenuItems} />
+        )}
       </DemoSection>
     )
   }
@@ -199,8 +203,18 @@ ${this.addButtonRes}
     const button = this.addedButton[index]
     const params = { ids: [button.id] }
     console.log('removeMenuItem 请求参数', params)
+    this.addedButton.splice(index, 1)
     api().setUpBridge(bridge => {
       bridge.callHandler('removeMenuItem', params)
+    })
+  }
+
+  private removeAllMenuItems = () => {
+    const payload = { ids: this.addedButton.map(({ id }) => id) }
+    console.log('removeMenuItem 请求参数', payload)
+    this.addedButton = []
+    api().setUpBridge(bridge => {
+      bridge.callHandler('removeMenuItem', payload)
     })
   }
 
@@ -213,7 +227,7 @@ ${this.addButtonRes}
     console.log('addMenuItem 请求参数', params)
     api().setUpBridge(bridge => {
       bridge.callHandler('addMenuItem', params, res => {
-        const data = JSON.parse(res)
+        const data = parse(res)
         if (data.result === 'true') {
           alert(`${params.title} 点击: ${res}`)
         }
