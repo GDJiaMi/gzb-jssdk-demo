@@ -14,6 +14,8 @@ import Platforms from 'components/Platforms'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem'
 import _Toggle from 'material-ui/Toggle'
 import api, {
   SelectSessionParams,
@@ -32,6 +34,7 @@ interface Props {
 @observer
 export default class Session extends React.Component<Props> {
   @observable private userId: string = 'u116115'
+  @observable private type: number = 2
   @observable
   private selectSessionParams: SelectSessionParams = {
     multiple: true,
@@ -106,8 +109,19 @@ api(true, '选择会话')
             value={this.userId}
             onChange={this.handleUserIdChange}
           />
-          <Button label="打开单聊会话框" onClick={() => this.openSession1()} />
           <br />
+          <SelectField
+            floatingLabelText="type"
+            value={this.type}
+            onChange={(e, i, value) => (this.type = value)}
+          >
+            <MenuItem value={1} primaryText="群聊" />
+            <MenuItem value={2} primaryText="单聊" />
+            <MenuItem value={3} primaryText="公告广播" />
+            <MenuItem value={4} primaryText="访客" />
+          </SelectField>
+          <br />
+          <Button label="打开会话框" onClick={() => this.openSession()} />
         </DemoSection>
         <DemoSection>
           <H2>示例代码</H2>
@@ -153,5 +167,9 @@ api().openDialog({ type: DialogType.Chat, id: userID })
 
   private openSession1 = (id = this.userId, type?: 'user' | 'chatroom') => {
     api().openDialog({ type: type ? (type === 'user' ? 2 : 1) : 2, id })
+  }
+
+  private openSession = () => {
+    api().openDialog({ id: this.userId, type: this.type })
   }
 }
