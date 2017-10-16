@@ -66,7 +66,7 @@ export default class MoreMenu extends React.Component<Props> {
     return (
       <DemoSection>
         <H2>
-          移除按钮(removeMenuItem) <Platforms ios android />
+          移除按钮(removeMenuItem) <Platforms ios android pc />
         </H2>
         <ul>
           {this.addedButton.map((button, index) => {
@@ -94,7 +94,7 @@ export default class MoreMenu extends React.Component<Props> {
     return (
       <DemoSection>
         <H2>
-          显示和隐藏默认按钮(setNativeMenuItem) <Platforms ios android />
+          显示和隐藏默认按钮(setNativeMenuItem) <Platforms ios android pc />
         </H2>
         <SelectField
           floatingLabelText="id"
@@ -143,7 +143,7 @@ ${this.setNativeMenuItemRes}
     return (
       <DemoSection>
         <H2>
-          添加按钮(addMenuItem) <Platforms ios android />
+          添加按钮(addMenuItem) <Platforms ios android pc />
         </H2>
         <TextField
           hintText="输入标题"

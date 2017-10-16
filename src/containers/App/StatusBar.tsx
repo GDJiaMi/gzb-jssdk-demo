@@ -97,9 +97,6 @@ export default class StatusBar extends React.Component {
           <Link to="/open-file">
             <MenuItem>(exp)打开文件</MenuItem>
           </Link>
-          <Link to="/request-permission">
-            <MenuItem>(exp)权限请求</MenuItem>
-          </Link>
           <Link to="/menu-item">
             <MenuItem>(exp)自定义菜单</MenuItem>
           </Link>

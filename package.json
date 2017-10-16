@@ -1,6 +1,6 @@
 {
   "name": "gzb-jssdk-demo",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "gzb-jssdk-demo",
   "main": "index.js",
   "directories": {
@@ -106,7 +106,7 @@
     "webpack-manifest-plugin": "^1.2.1"
   },
   "dependencies": {
-    "@gdjiami/gzb-jssdk": "next",
+    "@gdjiami/gzb-jssdk": "^1.0.7-beta",
     "@types/highlight.js": "^9.1.10",
     "@types/markdown-it": "^0.0.4",
     "@types/material-ui": "^0.18.0",
