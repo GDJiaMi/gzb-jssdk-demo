@@ -147,7 +147,9 @@ async function chooseImage(){
 
   private choose = async () => {
     try {
+      console.log('图片选择请求参数', this.params)
       const res = await api().chooseImg(this.params)
+      console.log('图片选择响应参数', res)
       this.response = res
     } catch (err) {
       if (err instanceof BridgeResponseError) {

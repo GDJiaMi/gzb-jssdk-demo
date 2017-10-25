@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@gdjiami/gzb-jssdk@^1.0.7-beta":
-  version "1.0.7-beta"
-  resolved "https://registry.yarnpkg.com/@gdjiami/gzb-jssdk/-/gzb-jssdk-1.0.7-beta.tgz#a2edbbc1963a82db320b888ed5c460a8b121cdfb"
+"@gdjiami/gzb-jssdk@^1.0.9-beta":
+  version "1.0.9-beta"
+  resolved "https://registry.yarnpkg.com/@gdjiami/gzb-jssdk/-/gzb-jssdk-1.0.9-beta.tgz#23c3426e090ac3f87877ef5c70404218c136f137"
   dependencies:
     tslib "^1.7.1"
 
