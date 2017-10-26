@@ -218,22 +218,30 @@ ${this.addButtonRes}
     })
   }
 
+  private addNativeMenuItem = (params: { id: string; title: string }) => {
+    api().setUpBridge(bridge => {
+      bridge.callHandler('addMenuItem', params, res => {
+        console.log('addMenuItem 响应参数', res)
+        const data = parse(res)
+        if (data.result === 'true') {
+          alert(`${params.title} 点击: ${res}`)
+          // 重新见识
+          if (this.addedButton.some(({ id }) => id === params.id)) {
+            this.addNativeMenuItem(params)
+          }
+        }
+        this.addButtonRes = res
+      })
+    })
+  }
+
   private addMenuItem = () => {
     const params = {
       id: String(this.addedButton.length),
       title: this.title,
     }
     this.addedButton.push(params)
+    this.addNativeMenuItem(params)
     console.log('addMenuItem 请求参数', params)
-    api().setUpBridge(bridge => {
-      bridge.callHandler('addMenuItem', params, res => {
-        const data = parse(res)
-        if (data.result === 'true') {
-          alert(`${params.title} 点击: ${res}`)
-        }
-        console.log('addMenuItem 响应参数', res)
-        this.addButtonRes = res
-      })
-    })
   }
 }
