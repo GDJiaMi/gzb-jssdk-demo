@@ -10,6 +10,7 @@ import MenuItem from 'material-ui/MenuItem'
 import Divider from 'material-ui/Divider'
 import styled from 'utils/styled-components'
 import { Link as _Link, LinkProps } from 'react-router-dom'
+import { VERSION } from '@gdjiami/gzb-jssdk'
 
 // tslint:disable:jsx-no-lambda
 const Container = styled.div`
@@ -44,7 +45,7 @@ export default class StatusBar extends React.Component {
     return (
       <Container>
         <AppBar
-          title="GZB-JSSDK DEMO"
+          title={`GZB-JSSDK DEMO(${VERSION})`}
           onLeftIconButtonTouchTap={this.handleLeftButtonTap}
         />
         <Drawer
