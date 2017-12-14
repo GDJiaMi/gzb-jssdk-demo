@@ -40,6 +40,7 @@ export default class SetTitle extends React.Component<Props> {
     maximumAge: 10000,
     timeout: 10000,
     enableHighAccuracy: true,
+    watch: false,
   }
   public render() {
     return (
@@ -73,6 +74,12 @@ export default class SetTitle extends React.Component<Props> {
             label="enableHighAccuracy(启用高精度)"
             toggled={this.params.enableHighAccuracy}
             onToggle={this.handleToggleHAC}
+          />
+          <br />
+          <Toggle
+            label="watch(监视模式)"
+            toggled={this.params.watch}
+            onToggle={this.handleEnableWatch}
           />
           <br />
           <Button label="获取" onClick={this.getLocation} />
@@ -134,6 +141,10 @@ async function getLocation() {
 
   private handleTogglePreferNative = (_: object, checked: boolean) => {
     this.params.preferNative = checked
+  }
+
+  private handleEnableWatch = (_: object, checked: boolean) => {
+    this.params.watch = checked
   }
 
   private handleToggleHAC = (_: object, checked: boolean) => {
