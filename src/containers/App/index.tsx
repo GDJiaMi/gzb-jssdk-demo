@@ -132,6 +132,12 @@ export class App extends React.Component<AppProps> {
             path="/menu-item"
             component={asyncLoadComponent(() => import('containers/MoreMenu'))}
           />
+          <Route
+            path="/geo-navigate"
+            component={asyncLoadComponent(() =>
+              import('containers/GeoNavigate'),
+            )}
+          />
         </Main>
         <Footer>
           <Infos>

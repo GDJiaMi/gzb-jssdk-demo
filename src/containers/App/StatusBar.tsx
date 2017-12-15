@@ -101,6 +101,9 @@ export default class StatusBar extends React.Component {
           <Link to="/menu-item">
             <MenuItem>(exp)自定义菜单</MenuItem>
           </Link>
+          <Link to="/geo-navigate">
+            <MenuItem>(exp)打开导航</MenuItem>
+          </Link>
         </Drawer>
       </Container>
     )
