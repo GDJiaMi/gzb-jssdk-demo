@@ -138,6 +138,10 @@ export class App extends React.Component<AppProps> {
               import('containers/GeoNavigate'),
             )}
           />
+          <Route
+            path="/open-video"
+            component={asyncLoadComponent(() => import('containers/OpenVideo'))}
+          />
         </Main>
         <Footer>
           <Infos>

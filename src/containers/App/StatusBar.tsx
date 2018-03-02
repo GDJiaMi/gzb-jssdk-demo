@@ -91,18 +91,21 @@ export default class StatusBar extends React.Component {
           <Link to="/misc">
             <MenuItem>杂项</MenuItem>
           </Link>
-          <Divider />
           <Link to="/preview-img">
-            <MenuItem>(exp)图片预览</MenuItem>
+            <MenuItem>图片预览</MenuItem>
           </Link>
           <Link to="/open-file">
-            <MenuItem>(exp)打开文件</MenuItem>
+            <MenuItem>打开文件</MenuItem>
           </Link>
           <Link to="/menu-item">
-            <MenuItem>(exp)自定义菜单</MenuItem>
+            <MenuItem>自定义菜单</MenuItem>
           </Link>
           <Link to="/geo-navigate">
-            <MenuItem>(exp)打开导航</MenuItem>
+            <MenuItem>打开导航</MenuItem>
+          </Link>
+          <Divider />
+          <Link to="/open-video">
+            <MenuItem>(EXP)打开视频</MenuItem>
           </Link>
         </Drawer>
       </Container>
