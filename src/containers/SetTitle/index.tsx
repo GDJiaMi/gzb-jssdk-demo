@@ -7,7 +7,8 @@ import { observer } from 'mobx-react'
 import { Helmet } from 'react-helmet'
 import styled from 'utils/styled-components'
 import { observable } from 'mobx'
-import Code from 'components/Code'
+import Program from 'components/Code/Program'
+import Doc from 'components/Code/Doc'
 import H2 from 'components/H2'
 import DemoSection from 'components/DemoSection'
 import Platforms from 'components/Platforms'
@@ -43,18 +44,27 @@ export default class SetTitle extends React.Component<Props> {
         </DemoSection>
         <DemoSection>
           <H2>示例代码</H2>
-          <Code>
+          <Program>
             {`
-\`\`\`typescript
 import Api from '@gdjiami/gzb-jssdk'
 const api = Api()
 api.setTitle('value')
-\`\`\`
           `}
-          </Code>
+          </Program>
         </DemoSection>
         <DemoSection>
           <H2>文档</H2>
+          <Doc>
+            {`
+► **setTitle**(title: *\`string\`*): \`void\`
+
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| title | \`string\`   |  标题名称 |
+          `}
+          </Doc>
         </DemoSection>
       </div>
     )

@@ -7,7 +7,8 @@ import { observer } from 'mobx-react'
 import { Helmet } from 'react-helmet'
 import styled from 'utils/styled-components'
 import { observable } from 'mobx'
-import Code from 'components/Code'
+import Program from 'components/Code/Program'
+import Doc from 'components/Code/Doc'
 import H2 from 'components/H2'
 import Platforms from 'components/Platforms'
 import DemoSection from 'components/DemoSection'
@@ -67,20 +68,59 @@ export default class Phone extends React.Component<Props> {
         </DemoSection>
         <DemoSection>
           <H2>示例代码</H2>
-          <Code>
+          <Program>
             {`
-\`\`\`typescript
 import Api from '@gdjiami/gzb-jssdk'
 const api = Api()
 api.phone('13750007059')
 api.sms('13750007059')
 api.mail('gq-li@mygzb.com')
-\`\`\`
           `}
-          </Code>
+          </Program>
         </DemoSection>
         <DemoSection>
           <H2>文档</H2>
+          <Doc>
+            {`
+### phone
+► **phone**(callNumber: *\`string\`*): \`void\`
+拨打手机
+
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| callNumber | \`string\`   |  手机号码 |
+
+**Returns:** \`void\`
+
+---
+
+### sms
+► **sms**(callNumber: *\`string\`*): \`void\`
+
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| callNumber | \`string\`   |  手机号码 |
+
+**Returns:** \`void\`
+
+---
+
+### mail
+► **mail**(email: *\`string\`*): \`void\`
+
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| email | \`string\`   |  邮箱地址 |
+
+**Returns:** \`void\`
+          `}
+          </Doc>
         </DemoSection>
       </div>
     )

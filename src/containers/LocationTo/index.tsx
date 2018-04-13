@@ -7,7 +7,8 @@ import { observer } from 'mobx-react'
 import { Helmet } from 'react-helmet'
 import styled from 'utils/styled-components'
 import { observable } from 'mobx'
-import Code from 'components/Code'
+import Program from 'components/Code/Program'
+import Doc from 'components/Code/Doc'
 import H2 from 'components/H2'
 import DemoSection from 'components/DemoSection'
 import Platforms from 'components/Platforms'
@@ -45,9 +46,8 @@ export default class LocationTo extends React.Component<Props> {
         </DemoSection>
         <DemoSection>
           <H2>示例代码</H2>
-          <Code>
+          <Program>
             {`
-\`\`\`typescript
 import Api from '@gdjiami/gzb-jssdk'
 const api = Api()
 const url = 'http://mygzb.com'
@@ -58,12 +58,29 @@ api.locationTo({ url, showModel: 'outer' })
 
 // 应用打开
 api.locationTo({ url, showModel: 'inner' })
-\`\`\`
           `}
-          </Code>
+          </Program>
         </DemoSection>
         <DemoSection>
           <H2>文档</H2>
+          <Doc>{`
+► **locationTo**(params: *LocationToParams⎮\`string\`*): \`void\`
+
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| params | LocationToParams⎮\`string\`   |  请求参数，可以是字符串或对象， showMode 为inner时以应用内webview形式打开为outer时使用系统浏览器打开, 默认为outer |
+
+**Returns:** \`void\`
+
+---
+
+### LocationToParams
+打开指定连接请求参数
+**●  showMode**:  *"inner"⎮"outer"*
+**●  url**:  *\`string\`* 
+          `}</Doc>
         </DemoSection>
       </div>
     )

@@ -26,11 +26,14 @@ ${hljs.highlight(lang, str).value}
 
 interface Props {
   children: string
+  className?: string
 }
 
 export default class Code extends React.PureComponent<Props> {
   public render() {
     const html = { __html: md.render(this.props.children) }
-    return <div dangerouslySetInnerHTML={html} />
+    return (
+      <div dangerouslySetInnerHTML={html} className={this.props.className} />
+    )
   }
 }
