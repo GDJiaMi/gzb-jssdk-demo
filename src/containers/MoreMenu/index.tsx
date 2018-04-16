@@ -7,7 +7,8 @@ import { observer } from 'mobx-react'
 import { Helmet } from 'react-helmet'
 import styled from 'utils/styled-components'
 import { observable, computed } from 'mobx'
-import Code from 'components/Code'
+import Program from 'components/Code/Program'
+import Doc from 'components/Code/Doc'
 import H2 from 'components/H2'
 import DemoSection from 'components/DemoSection'
 import Platforms from 'components/Platforms'
@@ -43,11 +44,9 @@ export default class MoreMenu extends React.Component<Props> {
       visible: this.buttonVisible,
     }
   }
-  @observable private setNativeMenuItemRes: string = ''
 
   @observable private addedButton: Array<{ title: string; id: string }> = []
   @observable private title: string = '标题'
-  @observable private addButtonRes: string = ''
 
   public render() {
     return (
@@ -58,6 +57,64 @@ export default class MoreMenu extends React.Component<Props> {
         {this.renderSetNativeMenuItem()}
         {this.renderAddMenuItem()}
         {this.renderRemoveMenuItem()}
+        <DemoSection>
+          <H2>文档</H2>
+          <Doc>{`
+
+###  setNativeMenuItem
+
+控制更多按钮菜单下的原生按钮
+
+► **setNativeMenuItem**(params: *SetNativeMenuItemParams*): \`void\` 
+
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| params | SetNativeMenuItemParams  |  - |
+
+**Returns:** \`void\`
+
+**Types:**
+\`\`\`typescript
+interface SetNativeMenuItemParams {
+  id: NativeMenuItem
+  visible: boolean
+}
+\`\`\`
+
+---
+
+###  addMenuItem
+添加更多菜单项
+
+► **addMenuItem**(title: *\`string\`*, callback: *function*): \`void\`
+
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| title | \`string\`   | 标题 |
+| callback | function   | 回调 |
+
+**Returns:** \`void\`
+
+---
+
+###  removeMenuItem
+移除菜单项
+
+► **removeMenuItem**(title: *\`string\`*): \`void\`
+
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| title | \`string\`   | 标题 |
+
+**Returns:** \`void\`
+          `}</Doc>
+        </DemoSection>
       </div>
     )
   }
@@ -86,6 +143,14 @@ export default class MoreMenu extends React.Component<Props> {
         {!!this.addedButton.length && (
           <Button label="移除所有按钮" onClick={this.removeAllMenuItems} />
         )}
+        示例代码
+        <Program>
+          {`
+import Api from '@gdjiami/gzb-jssdk'
+const api = Api()
+api.removeMenuItem('标题')
+`}
+        </Program>
       </DemoSection>
     )
   }
@@ -112,29 +177,16 @@ export default class MoreMenu extends React.Component<Props> {
           onCheck={() => (this.buttonVisible = !this.buttonVisible)}
         />
         <br />
-        请求参数
-        <Code>
+        示例代码
+        <Program>
           {`
-\`\`\`json
-${JSON.stringify(this.setNativeMenuItemParams)}
-\`\`\`
-            `}
-        </Code>
+import Api from '@gdjiami/gzb-jssdk'
+const api = Api()
+api.setNativeMenuItem(${JSON.stringify(this.setNativeMenuItemParams)})`}
+        </Program>
         <br />
         <Button label="请求" onClick={this.setNativeMenuItem} />
         <br />
-        {!!this.setNativeMenuItemRes && (
-          <div>
-            返回参数
-            <Code>
-              {`
-\`\`\`json
-${this.setNativeMenuItemRes}
-\`\`\`
-            `}
-            </Code>
-          </div>
-        )}
       </DemoSection>
     )
   }
@@ -151,32 +203,17 @@ ${this.setNativeMenuItemRes}
           onChange={this.handleTitleChange}
         />
         <br />
-        请求参数
-        <Code>
+        示例代码
+        <Program>
           {`
-\`\`\`json
-{
-  "id": ${this.addedButton.length},
-  "title": "${this.title}",
-}
-\`\`\`
+import Api from '@gdjiami/gzb-jssdk'
+const api = Api()
+api.addMenuItem('${this.title}', () => {/* handle click*/})
             `}
-        </Code>
+        </Program>
         <br />
         <Button label="添加" onClick={this.addMenuItem} />
         <br />
-        {!!this.addButtonRes && (
-          <div>
-            返回参数
-            <Code>
-              {`
-\`\`\`json
-${this.addButtonRes}
-\`\`\`
-            `}
-            </Code>
-          </div>
-        )}
       </DemoSection>
     )
   }
@@ -193,7 +230,6 @@ ${this.addButtonRes}
         this.setNativeMenuItemParams,
         res => {
           console.log('setNativeMenuItem 响应参数', res)
-          this.setNativeMenuItemRes = res
         },
       )
     })
@@ -230,7 +266,6 @@ ${this.addButtonRes}
             this.addNativeMenuItem(params)
           }
         }
-        this.addButtonRes = res
       })
     })
   }

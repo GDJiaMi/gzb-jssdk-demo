@@ -9,6 +9,8 @@ import { Helmet } from 'react-helmet'
 import styled from 'utils/styled-components'
 import { observable, toJS } from 'mobx'
 import Code from 'components/Code'
+import Program from 'components/Code/Program'
+import Doc from 'components/Code/Doc'
 import H2 from 'components/H2'
 import DemoSection from 'components/DemoSection'
 import Platforms from 'components/Platforms'
@@ -114,33 +116,49 @@ ${this.previewImages.map(s => `    "${s}"`).join(',\n')}
           <br />
           <RaisedButton label="请求" onClick={this.handlePreviewImageRequest} />
           <br />
-          {!!this.previewImgRes && (
-            <div>
-              返回参数
-              <Code>
-                {`
-\`\`\`json
-${this.previewImgRes}
-\`\`\`
-            `}
-              </Code>
-            </div>
-          )}
         </DemoSection>
-        {/* <DemoSection>
+        <DemoSection>
           <H2>示例代码</H2>
-          <Code>
+          <Program>
             {`
-\`\`\`typescript
 import Api from '@gdjiami/gzb-jssdk'
 const api = Api()
-api.setTitle('value')
-\`\`\`
+api.previewImg({
+  {
+    "url": [
+${this.previewImages.map(s => `      "${s}"`).join(',\n')}
+    ],
+    "index": 0
+  }
+})
           `}
-          </Code>
-        </DemoSection> */}
+          </Program>
+        </DemoSection>
         <DemoSection>
           <H2>文档</H2>
+          <Doc>{`
+###  previewImg
+
+预览图片
+
+► **previewImg**(params: *PreviewImgParams*): \`Promise\`<\`void\`>
+
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| params | PreviewImgParams |   <br/>+ url 字符串数组，需要预览的图片url <br/>+ index 当前显示的图片索引 | 
+
+**Returns:** \`Promise\`<\`void\`>
+
+**Types:**
+\`\`\`typescript
+export interface PreviewImgParams {
+  url: string[]
+  index: number
+}
+\`\`\`
+          `}</Doc>
         </DemoSection>
       </div>
     )

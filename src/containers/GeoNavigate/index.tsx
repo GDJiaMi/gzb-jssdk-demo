@@ -7,6 +7,8 @@ import { observer } from 'mobx-react'
 import { Helmet } from 'react-helmet'
 import { observable } from 'mobx'
 import Code from 'components/Code'
+import Doc from 'components/Code/Doc'
+import Program from 'components/Code/Program'
 import H2 from 'components/H2'
 import DemoSection from 'components/DemoSection'
 import Platforms from 'components/Platforms'
@@ -83,20 +85,42 @@ ${this.res}
             </div>
           )}
         </DemoSection>
-        {/* <DemoSection>
+        <DemoSection>
           <H2>示例代码</H2>
-          <Code>
+          <Program>
             {`
-\`\`\`typescript
 import Api from '@gdjiami/gzb-jssdk'
 const api = Api()
-api.setTitle('value')
-\`\`\`
+api.geoNavigate(
+  {address: '起始地址', latitude: 23.11, longitude: 123.11},
+  {address: '目的地址', latitude: 24.11, longitude: 123.11},
+)
           `}
-          </Code>
-        </DemoSection> */}
+          </Program>
+        </DemoSection>
         <DemoSection>
           <H2>文档</H2>
+          <Doc>{`
+► **geoNavigate**(from: *GeoNavigateParams*, to: *GeoNavigateParams*): \`void\`
+
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| from | GeoNavigateParams   | 起始地址 |
+| to | GeoNavigateParams   | 目的地址 |
+
+**Returns:** \`void\`
+
+**Types:**
+\`\`\`typescript
+interface GeoNavigateParams {
+  latitude: number
+  longitude: number
+  address: string
+}
+\`\`\`
+          `}</Doc>
         </DemoSection>
       </div>
     )

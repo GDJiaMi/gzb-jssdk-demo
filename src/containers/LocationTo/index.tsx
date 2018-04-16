@@ -76,10 +76,13 @@ api.locationTo({ url, showModel: 'inner' })
 
 ---
 
-### LocationToParams
-打开指定连接请求参数
-**●  showMode**:  *"inner"⎮"outer"*
-**●  url**:  *\`string\`* 
+### 相关类型定义
+\`\`\`typescript
+interface LocationToParams {
+  url: string
+  showMode?: 'inner' | 'outer'
+}
+\`\`\`
           `}</Doc>
         </DemoSection>
       </div>

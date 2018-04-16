@@ -7,7 +7,8 @@ import { observer } from 'mobx-react'
 import { Helmet } from 'react-helmet'
 import styled from 'utils/styled-components'
 import { observable } from 'mobx'
-import Code from 'components/Code'
+import Doc from 'components/Code/Doc'
+import Program from 'components/Code/Program'
 import H2 from 'components/H2'
 import Platforms from 'components/Platforms'
 import DemoSection from 'components/DemoSection'
@@ -49,18 +50,16 @@ export default class StatusBar extends React.Component<Props> {
         </DemoSection>
         <DemoSection>
           <H2>示例代码</H2>
-          <Code>
+          <Program>
             {`
-\`\`\`typescript
 import Api from '@gdjiami/gzb-jssdk'
 const api = Api()
 // 显示状态栏
 api.showBar()
 // 隐藏状态栏
 api.hideBar()
-\`\`\`
           `}
-          </Code>
+          </Program>
         </DemoSection>
 
         <H2>
@@ -84,9 +83,8 @@ api.hideBar()
         </DemoSection>
         <DemoSection>
           <H2>示例代码</H2>
-          <Code>
+          <Program>
             {`
-\`\`\`typescript
 import Api, { MobileApi } from '@gdjiami/gzb-jssdk'
 // 这些接口只在移动端有效
 const api = Api() as MobileApi
@@ -102,9 +100,8 @@ api.getCloseButtonVisible()
 // 显示更多按钮
 api.setMoreButtonVisible(true)
 api.getMoreButtonVisible()
-\`\`\`
           `}
-          </Code>
+          </Program>
         </DemoSection>
         <DemoSection>
           <H2>
@@ -124,19 +121,99 @@ api.getMoreButtonVisible()
         </DemoSection>
         <DemoSection>
           <H2>示例代码</H2>
-          <Code>
+          <Program>
             {`
-\`\`\`typescript
 import Api from '@gdjiami/gzb-jssdk'
 // 这些接口只在移动端有效
 const api = Api() as MobileApi
 api.setBarColor('#FFF')
-\`\`\`
           `}
-          </Code>
+          </Program>
         </DemoSection>
         <DemoSection>
           <H2>文档</H2>
+          <Doc>
+            {`
+###  setBarVisible
+设置状态栏的可见性， 也可以使用showBar， hideBar代替
+► **setBarVisible**(visible: *\`boolean\`*): \`void\`
+
+---
+
+###  showBar
+显示状态栏
+► **showBar**(): \`void\`
+
+
+---
+
+###  hideBar
+隐藏状态栏
+► **hideBar**(): \`void\`
+
+
+---
+
+###  setBackButtonVisible
+设置返回按钮的可见性
+
+> 关闭按钮和返回按钮只能隐藏一个
+
+► **setBackButtonVisible**(visible?: *\`boolean\`*): \`void\`
+
+
+---
+
+
+###  getBackButtonVisible
+获取返回按钮的可见性
+
+► **getBackButtonVisible**(): \`boolean\`
+
+
+---
+
+
+###  setCloseButtonVisible
+设置关闭按钮的可见性
+> 关闭按钮和返回按钮只能隐藏一个
+
+► **setCloseButtonVisible**(visible?: *\`boolean\`*): \`void\`
+
+
+---
+
+###  getCloseButtonVisible
+获取关闭按钮的可见性
+
+► **getCloseButtonVisible**(): \`boolean\`
+
+
+---
+
+###  setMoreButtonVisible
+设置更多按钮的可见性
+
+► **setMoreButtonVisible**(visible?: *\`boolean\`*): \`void\`
+
+
+---
+
+###  getMoreButtonVisible
+获取更多按钮的可见性
+
+► **getMoreButtonVisible**(): \`boolean\`
+
+
+---
+
+###  setBarColor
+设置菜单栏颜色
+> 注意：目前只支持\`RGB hex\`格式的颜色值， 如\`#FFFFFF\`
+
+► **setBarColor**(color: *\`string\`*): \`void\`
+`}
+          </Doc>
         </DemoSection>
       </div>
     )

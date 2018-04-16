@@ -6,7 +6,8 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import { Helmet } from 'react-helmet'
 import { observable } from 'mobx'
-import Code from 'components/Code'
+import Doc from 'components/Code/Doc'
+import Program from 'components/Code/Program'
 import H2 from 'components/H2'
 import Platforms from 'components/Platforms'
 import DemoSection from 'components/DemoSection'
@@ -37,9 +38,8 @@ export default class ScanQRCode extends React.Component<Props> {
         </DemoSection>
         <DemoSection>
           <H2>示例代码</H2>
-          <Code>
+          <Program>
             {`
-\`\`\`typescript
 import api from '@gdjiami/gzb-jssdk'
 async scan() {
   try {
@@ -49,12 +49,29 @@ async scan() {
     alert(\`扫码失败: \${err.message}\`)
   }
 }
-\`\`\`
           `}
-          </Code>
+          </Program>
         </DemoSection>
         <DemoSection>
           <H2>文档</H2>
+          <Doc>
+            {`
+► **scanQRCode**(needResult?: *\`boolean\`*): \`Promise\`< QRCodeResponse>
+
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| needResult | \`boolean\`   |  指定是否返回结果 |
+
+**Types:**
+\`\`\`typescript
+interface QRCodeResponse {
+  content: string
+}
+\`\`\`
+          `}
+          </Doc>
         </DemoSection>
       </div>
     )

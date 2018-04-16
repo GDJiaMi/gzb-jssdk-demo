@@ -79,8 +79,14 @@ export default class StatusBar extends React.Component {
           <Link to="/choose-image">
             <MenuItem>选择图片</MenuItem>
           </Link>
+          <Link to="/preview-img">
+            <MenuItem>图片预览</MenuItem>
+          </Link>
           <Link to="/get-location">
             <MenuItem>获取当前位置</MenuItem>
+          </Link>
+          <Link to="/geo-navigate">
+            <MenuItem>打开导航</MenuItem>
           </Link>
           <Link to="/status-bar">
             <MenuItem>状态栏</MenuItem>
@@ -91,17 +97,11 @@ export default class StatusBar extends React.Component {
           <Link to="/misc">
             <MenuItem>杂项</MenuItem>
           </Link>
-          <Link to="/preview-img">
-            <MenuItem>图片预览</MenuItem>
-          </Link>
           <Link to="/open-file">
             <MenuItem>打开文件</MenuItem>
           </Link>
           <Link to="/menu-item">
             <MenuItem>自定义菜单</MenuItem>
-          </Link>
-          <Link to="/geo-navigate">
-            <MenuItem>打开导航</MenuItem>
           </Link>
           <Divider />
           <Link to="/open-video">

@@ -7,7 +7,8 @@ import { observer } from 'mobx-react'
 import { Helmet } from 'react-helmet'
 import styled from 'utils/styled-components'
 import { observable } from 'mobx'
-import Code from 'components/Code'
+import Doc from 'components/Code/Doc'
+import Program from 'components/Code/Program'
 import H2 from 'components/H2'
 import Platforms from 'components/Platforms'
 import DemoSection from 'components/DemoSection'
@@ -102,9 +103,8 @@ export default class SetTitle extends React.Component<Props> {
         </DemoSection>
         <DemoSection>
           <H2>示例代码</H2>
-          <Code>
+          <Program>
             {`
-\`\`\`typescript
 import Api, { BridegeResponseError } from '@gdjiami/gzb-jssdk'
 const api = Api()
 async function getLocation() {
@@ -128,12 +128,64 @@ async function getLocation() {
     }
   }
 }
-\`\`\`
           `}
-          </Code>
+          </Program>
         </DemoSection>
         <DemoSection>
           <H2>文档</H2>
+          <Doc>
+            {`
+获取当前位置 
+FIXME: native 端没有错误处理
+
+► **getLocation**(options?: *\`Partial\`< GetLocationOptions>*): \`Promise\`< GetLocationResponse>
+
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| options | \`Partial\`< GetLocationOptions>   |  - |
+
+
+**Returns:** \`Promise\`< GetLocationResponse>
+
+**Types:**
+
+\`\`\`typescript
+/**
+ * 获取当前为位置请求参数, 请求参数和HTML5的\`Geolocation.getCurrentLocation\`一致
+ */
+export interface GetLocationOptions extends PositionOptions {
+  /**
+   * 是否优先调用原生接口， 默认为true
+   */
+  preferNative: boolean
+  watch: boolean
+}
+
+/**
+ * 获取当前位置响应
+ */
+export interface GetLocationResponse {
+  latitude: number
+  longitude: number
+  speed: number | null
+  /**
+   * 坐标类型
+   */
+  coordType: CoordType
+  /**
+   * 精度(m)
+   */
+  accuracy?: number
+  /**
+   * 反向解析的中文详细地址
+   */
+  address?: string
+}
+\`\`\`
+`}
+          </Doc>
         </DemoSection>
       </div>
     )

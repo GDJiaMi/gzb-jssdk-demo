@@ -7,7 +7,8 @@ import { observer } from 'mobx-react'
 import { Helmet } from 'react-helmet'
 import styled from 'utils/styled-components'
 import { observable } from 'mobx'
-import Code from 'components/Code'
+import Doc from 'components/Code/Doc'
+import Program from 'components/Code/Program'
 import H2 from 'components/H2'
 import DemoSection from 'components/DemoSection'
 import Platforms from 'components/Platforms'
@@ -91,6 +92,7 @@ export default class ChooseImage extends React.Component<Props> {
             <MenuItem value="camera" primaryText="camera" />
             <MenuItem value="gallery" primaryText="gallery" />
           </SelectField>
+
           <br />
           <RaisedButton label="选择" onClick={this.choose} />
           <br />
@@ -109,13 +111,9 @@ export default class ChooseImage extends React.Component<Props> {
           )}
         </DemoSection>
         <DemoSection>
-          <input type="file" />
-        </DemoSection>
-        <DemoSection>
           <H2>示例代码</H2>
-          <Code>
+          <Program>
             {`
-\`\`\`typescript
 import Api, { BridgeResponseError } from '@gdjiami/gzb-jssdk'
 const api = Api()
 async function chooseImage(){
@@ -127,13 +125,76 @@ async function chooseImage(){
       alert(\`图片选择失败: \${err.errCode}: \${err.message}\`)
     }
   }
-}
-\`\`\`
-          `}
-          </Code>
+}`}
+          </Program>
         </DemoSection>
         <DemoSection>
           <H2>文档</H2>
+          <Doc>
+            {`
+► **chooseImg**(params?: *ChooseImgParams*): \`Promise\`< ChooseImgResponse>
+
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| params | ChooseImgParams  |  - |
+
+**Returns:** \`Promise\`< ChooseImgResponse>
+
+**Types:**
+
+\`\`\`typescript
+type ImageType = 'bmp' | 'gif' | 'jpg' | 'png'
+/**
+ * 选择图片请求参数
+ */
+interface ChooseImgParams {
+  /**
+   * 图片质量，1 - 100
+   */
+  quality?: number
+  /**
+   * 设置缩放后的边大小
+   */
+  target?: number
+  /**
+   * 设置target应用到的边, 默认为default
+   */
+  targetType?: 'default' | 'width' | 'height'
+  /**
+   * 操作类型， camera 打开相机， gallery打开相册. 
+   * 默认为default，弹出一个actionsheet， 由 * 用户自主选择
+   */
+  actionType?: 'default' | 'camera' | 'gallery'
+  /**
+   * 图片扩展类型
+   */
+  extType?: ImageType[]
+  /**
+   * 最大体积， 单位为kb
+   */
+  maxSizeKb?: number
+  /**
+   * 选中后返回的图片格式(如果没有指定, 默认返回jpeg类型)
+   */
+  returnExt?: ImageType;
+}
+
+/**
+ * 选择图片返回数据
+ */
+export interface ChooseImgResponse {
+  width: number
+  height: number
+  name?: string
+  quality: number
+  extension: ImageType
+  dataUrl: string
+}
+\`\`\`
+`}
+          </Doc>
         </DemoSection>
       </div>
     )

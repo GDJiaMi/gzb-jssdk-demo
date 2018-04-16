@@ -8,6 +8,7 @@ import { Helmet } from 'react-helmet'
 import styled from 'utils/styled-components'
 import { observable } from 'mobx'
 import Code from 'components/Code'
+import Doc from 'components/Code/Doc'
 import H2 from 'components/H2'
 import DemoSection from 'components/DemoSection'
 import Platforms from 'components/Platforms'
@@ -137,6 +138,96 @@ api().openDialog({ type: DialogType.Chat, id: userID })
         </DemoSection>
         <DemoSection>
           <H2>文档</H2>
+          <Doc>
+            {`
+###  selectSession
+用户获取会话id
+
+► **selectSession**(params?: *SelectSessionParams*): \`Promise\`< SelectSessionResponse>
+
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| params | SelectSessionParams   |  参数 <br/> + \`multiple\`: 表示支持多选 <br/> + \`title\`: 设置对话框的标题 |
+
+**Returns:** \`Promise\`< SelectSessionResponse>
+
+**Types:**
+\`\`\`typescript
+/**
+ * 选择会话请求参数
+ */
+interface SelectSessionParams {
+  /**
+   * 是否支持多选
+   */
+  multiple?: boolean
+  /**
+   * 对话框显示的标题
+   */
+  title?: string
+}
+
+/**
+ * 选择会话响应参数
+ */
+interface SelectSessionResponse {
+  sessionId: string
+  sessionType: 'user' | 'chatroom'
+}
+\`\`\`
+
+---
+
+###  openDialog
+
+► **openDialog**(params: *DialogParams*): \`void\`
+
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| params | DialogParams  |  选项<br/>+ type: 会话类型, 1 群聊 2 单聊 3公告广播<br/>+ id: 会话ID， 群组id或个人id<br/>+ messageId: //消息记录ID |
+
+**Returns:** \`void\`
+
+**Types:**
+
+\`\`\`typescript
+/**
+ * 会话类型
+ */
+enum DialogType {
+  /**
+   * 群聊
+   */
+  GroupChat = 1,
+  /**
+   * 单聊
+   */
+  Chat,
+  /**
+   * 公告广播
+   */
+  Announcement,
+  /**
+   * 打开访客聊天窗口, id为访客id
+   */
+  Visitor,
+}
+
+/**
+ * 打开会话框请求参数
+ */
+interface DialogParams {
+  type: DialogType
+  id: string
+  messageId?: string
+}
+\`\`\`
+          `}
+          </Doc>
         </DemoSection>
       </div>
     )

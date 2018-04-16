@@ -7,7 +7,8 @@ import { observer } from 'mobx-react'
 import { Helmet } from 'react-helmet'
 // import styled from 'utils/styled-components'
 import { observable } from 'mobx'
-import Code from 'components/Code'
+import Doc from 'components/Code/Doc'
+import Program from 'components/Code/Program'
 import H2 from 'components/H2'
 import DemoSection from 'components/DemoSection'
 // import TextField from 'material-ui/TextField'
@@ -21,7 +22,6 @@ interface Props {
 @observer
 export default class SetTitle extends React.Component<Props> {
   @observable private currentLanguage: string
-  @observable private currentEnvironment: string
   public render() {
     return (
       <div className={this.props.className}>
@@ -34,15 +34,13 @@ export default class SetTitle extends React.Component<Props> {
         </DemoSection>
         <DemoSection>
           <H2>示例代码</H2>
-          <Code>
+          <Program>
             {`
-\`\`\`typescript
 import Api from '@gdjiami/gzb-jssdk'
 const api = Api()
 api.exit()
-\`\`\`
           `}
-          </Code>
+          </Program>
         </DemoSection>
 
         <H2>分享</H2>
@@ -51,15 +49,13 @@ api.exit()
         </DemoSection>
         <DemoSection>
           <H2>示例代码</H2>
-          <Code>
+          <Program>
             {`
-\`\`\`typescript
 import Api from '@gdjiami/gzb-jssdk'
 const api = Api()
 api.shareTo()
-\`\`\`
           `}
-          </Code>
+          </Program>
         </DemoSection>
 
         <H2>获取系统语言</H2>
@@ -69,37 +65,28 @@ api.shareTo()
         </DemoSection>
         <DemoSection>
           <H2>示例代码</H2>
-          <Code>
+          <Program>
             {`
-\`\`\`typescript
 import Api from '@gdjiami/gzb-jssdk'
 const api = Api()
-api.shareTo()
-\`\`\`
+const language = await api.getLanguage()
           `}
-          </Code>
-        </DemoSection>
-
-        <H2>获取工作宝环境信息</H2>
-        <DemoSection>
-          <RaisedButton label="获取" onClick={this.getEnvironment} />
-          <p>{this.currentEnvironment}</p>
+          </Program>
         </DemoSection>
 
         <DemoSection>
           <H2>文档</H2>
+          <Doc>
+            {`
+###  getLanguage
+获取客户端语言
+► **getLanguage**(): \`Promise\`<\`string\`>
+
+`}
+          </Doc>
         </DemoSection>
       </div>
     )
-  }
-
-  private getEnvironment = async () => {
-    api().setUpBridge(bridge => {
-      bridge.callHandler('getEnvironment', null, res => {
-        console.log('getEnvironment 响应', res)
-        this.currentEnvironment = JSON.stringify(res)
-      })
-    })
   }
 
   private getLanguage = async () => {

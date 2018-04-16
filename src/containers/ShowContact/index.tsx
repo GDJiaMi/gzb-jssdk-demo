@@ -7,7 +7,8 @@ import { Helmet } from 'react-helmet'
 import styled from 'utils/styled-components'
 import { observable } from 'mobx'
 import { observer } from 'mobx-react'
-import Code from 'components/Code'
+import Doc from 'components/Code/Doc'
+import Program from 'components/Code/Program'
 import H2 from 'components/H2'
 import DemoSection from 'components/DemoSection'
 import Platforms from 'components/Platforms'
@@ -44,15 +45,13 @@ export default class ShowContact extends React.Component<Props> {
         </DemoSection>
         <DemoSection>
           <H2>示例代码</H2>
-          <Code>
+          <Program>
             {`
-\`\`\`typescript
 import Api from '@gdjiami/gzb-jssdk'
 const api = Api()
-api.showContact(userId)
-\`\`\`
+api.openContact(userId)
           `}
-          </Code>
+          </Program>
         </DemoSection>
         <H2>
           联系人选择器<Platforms android ios pc />
@@ -71,9 +70,8 @@ api.showContact(userId)
         </DemoSection>
         <DemoSection>
           <H2>示例代码</H2>
-          <Code>
+          <Program>
             {`
-\`\`\`typescript
 import Api from '@gdjiami/gzb-jssdk'
 const api = Api()
 async function selectContact() {
@@ -89,12 +87,74 @@ async function selectContact() {
     console.log(err)
   }
 }
-\`\`\`
           `}
-          </Code>
+          </Program>
         </DemoSection>
         <DemoSection>
           <H2>文档</H2>
+          <Doc>
+            {`
+### openContact
+► **openContact**(id: *\`string\`*): \`void\`
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| id | \`string\`   |  用户id |
+
+**Returns:** \`void\`
+
+---
+
+###  selectContact
+► **selectContact**(params: *SelectContactParams*): \`Promise\`.<SelectContactResponse>
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| params | SelectContactParams  |  - |
+
+**Returns:** \`Promise\`.<SelectContactResponse>
+
+---
+
+### 相关类型定义
+
+\`\`\`typescript
+export interface SelectContactParams {
+  /**
+   * 已选中联系人信息
+   */
+  user?: Array<{
+    id: string
+    name: string
+  }>
+  /**
+   * 企业id
+   */
+  tenementId: string
+  /**
+   * 限制数，只有在type为multple时有效
+   */
+  limit?: number
+  /**
+   * 是否可以取消选择
+   */
+  unselect?: boolean
+  /**
+   * 选择类型
+   */
+  type?: 'single' | 'multiple'
+}
+
+type SelectContactResponse = Array<{
+  id: string
+  name: string
+  avatar: string
+}>
+\`\`\`
+          `}
+          </Doc>
         </DemoSection>
       </div>
     )

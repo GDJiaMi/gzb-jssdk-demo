@@ -6,7 +6,8 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import { Helmet } from 'react-helmet'
 import { observable } from 'mobx'
-import Code from 'components/Code'
+import Program from 'components/Code/Program'
+import Doc from 'components/Code/Doc'
 import H2 from 'components/H2'
 import DemoSection from 'components/DemoSection'
 import Platforms from 'components/Platforms'
@@ -38,45 +39,36 @@ export default class OpenFile extends React.Component<Props> {
             onChange={this.handleChange}
           />
           <br />
-          请求参数
-          <Code>
+          示例代码
+          <Program>
             {`
-\`\`\`json
-{
-  "url": "${this.value}"
-}
-\`\`\` `}
-          </Code>
+import Api from '@gdjiami/gzb-jssdk'
+const api = Api()
+api.openFile('${this.value}')
+`}
+          </Program>
           <br />
           <RaisedButton label="打开" onClick={this.open} />
           <br />
-          {!!this.res && (
-            <div>
-              返回参数
-              <Code>
-                {`
-\`\`\`json
-${this.res}
-\`\`\`
-            `}
-              </Code>
-            </div>
-          )}
         </DemoSection>
-        {/* <DemoSection>
-          <H2>示例代码</H2>
-          <Code>
-            {`
-\`\`\`typescript
-import Api from '@gdjiami/gzb-jssdk'
-const api = Api()
-api.setTitle('value')
-\`\`\`
-          `}
-          </Code>
-        </DemoSection> */}
         <DemoSection>
           <H2>文档</H2>
+          <Doc>
+            {`
+###  openFile
+
+► **openFile**(url: *\`string\`*): \`Promise\`<\`void\`>
+打开指定文件
+
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| url | \`string\`   |  文件url |
+
+**Returns:** \`Promise\`<\`void\`>
+            `}
+          </Doc>
         </DemoSection>
       </div>
     )
