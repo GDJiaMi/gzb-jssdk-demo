@@ -142,6 +142,10 @@ export class App extends React.Component<AppProps> {
             path="/open-video"
             component={asyncLoadComponent(() => import('containers/OpenVideo'))}
           />
+          <Route
+            path="/rpc"
+            component={asyncLoadComponent(() => import('containers/RPC'))}
+          />
         </Main>
         <Footer>
           <Infos>

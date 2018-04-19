@@ -107,6 +107,9 @@ export default class StatusBar extends React.Component {
           <Link to="/open-video">
             <MenuItem>(EXP)打开视频</MenuItem>
           </Link>
+          <Link to="/rpc">
+            <MenuItem>(EXP)RPC 调试</MenuItem>
+          </Link>
         </Drawer>
       </Container>
     )
