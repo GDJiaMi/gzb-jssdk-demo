@@ -10,6 +10,7 @@ import { observable } from 'mobx'
 import Code from 'components/Code'
 import Doc from 'components/Code/Doc'
 import H2 from 'components/H2'
+import H3 from 'components/H3'
 import DemoSection from 'components/DemoSection'
 import Platforms from 'components/Platforms'
 import TextField from 'material-ui/TextField'
@@ -17,8 +18,10 @@ import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
+import _Chip from 'material-ui/Chip'
 import _Toggle from 'material-ui/Toggle'
 import api, {
+  SessionType,
   SelectSessionParams,
   SelectSessionResponse,
   BridgeResponseError,
@@ -27,10 +30,19 @@ import api, {
 
 const Button = styled(RaisedButton)`margin-left: 1em;`
 const Toggle = styled(_Toggle)`max-width: 250px;`
+const Chip = styled(_Chip)`margin: 0.5em !important;`
 
 interface Props {
   className?: string
 }
+
+const SessionTypeList = [
+  { value: 'user', label: 'user(最近联系人(用户)，组织架构，我的好友)' },
+  { value: 'chatroom', label: 'chatroom(最近联系人(群组))' },
+  { value: 'publicAccount', label: 'publicAccount(公众账号)' },
+  { value: 'localContacts', label: 'localContacts(手机联系人)' },
+  { value: 'visitor', label: 'visitor(访客_' },
+]
 
 @observer
 export default class Session extends React.Component<Props> {
@@ -40,6 +52,11 @@ export default class Session extends React.Component<Props> {
   private selectSessionParams: SelectSessionParams = {
     multiple: true,
     title: '选择会话',
+    sessionType: [],
+    limit: undefined,
+    unselect: true,
+    tenementId: undefined,
+    selected: [],
   }
   @observable private selectedSession: SelectSessionResponse = []
   public render() {
@@ -49,7 +66,7 @@ export default class Session extends React.Component<Props> {
           <title>会话</title>
         </Helmet>
         <H2>
-          会话选择器<Platforms android ios pc />
+          1. 会话选择器<Platforms android ios pc />
         </H2>
         <DemoSection>
           <Toggle
@@ -59,12 +76,91 @@ export default class Session extends React.Component<Props> {
           />
           <br />
           <TextField
-            hintText="输入显示标题"
+            floatingLabelText="标题"
             value={this.selectSessionParams.title}
             onChange={this.handleTitleChange}
           />
+          <br />
+          <SelectField
+            multiple
+            floatingLabelText="会话类型"
+            value={[...this.selectSessionParams.sessionType]}
+            onChange={(e, i, value) => {
+              this.selectSessionParams.sessionType = value
+            }}
+          >
+            {SessionTypeList.map(i => (
+              <MenuItem
+                key={i.value}
+                value={i.value}
+                primaryText={i.label}
+                checked={
+                  (this.selectSessionParams.sessionType || [])
+                    .indexOf(i.value as SessionType) !== -1
+                }
+                insetChildren
+              />
+            ))}
+          </SelectField>
+          <br />
+          <TextField
+            floatingLabelText="最多可选择数目"
+            value={this.selectSessionParams.limit}
+            onChange={(e: React.ChangeEvent<{ value: string }>) => {
+              const num =
+                e.target.value.trim() === ''
+                  ? undefined
+                  : parseInt(e.target.value, 10)
+              this.selectSessionParams.limit =
+                num == null ? num : Number.isNaN(num) ? undefined : num
+            }}
+          />
+          <br />
+          <Toggle
+            label="是否可以取消选择"
+            toggled={this.selectSessionParams.unselect}
+            onToggle={(e, c) => (this.selectSessionParams.unselect = c)}
+          />
+          <br />
+          <TextField
+            floatingLabelText="企业id"
+            value={this.selectSessionParams.tenementId}
+            onChange={(e: React.ChangeEvent<{ value: string }>) => {
+              this.selectSessionParams.tenementId = e.target.value
+            }}
+          />
+          <br />
+          <br />
+          <label>已选中:</label>
+          <a onClick={this.selectSelected} href="#">
+            选择
+          </a>
+          {(this.selectSessionParams.selected || []).map(i => (
+            <Chip key={i.sessionId}>
+              {i.name}({i.sessionId}:{i.sessionType})
+            </Chip>
+          ))}
+          <br />
+          <br />
           <Button label="选择会话" onClick={this.selectSession} />
           <br />
+          <br />
+          <H3>请求参数</H3>
+          <Code>
+            {`
+\`\`\`json
+${JSON.stringify(this.selectSessionParams, undefined, 2)}
+\`\`\`
+          `}
+          </Code>
+          <H3>响应</H3>
+          <Code>
+            {`
+\`\`\`json
+${JSON.stringify(this.selectedSession || [], undefined, 2)}
+\`\`\`
+          `}
+          </Code>
           <ul>
             {this.selectedSession.map(session => (
               <li key={session.sessionId}>
@@ -79,7 +175,7 @@ export default class Session extends React.Component<Props> {
           </ul>
         </DemoSection>
         <DemoSection>
-          <H2>示例代码</H2>
+          <H3>示例代码</H3>
           <Code>
             {`
 \`\`\`typescript
@@ -102,7 +198,7 @@ api(true, '选择会话')
           </Code>
         </DemoSection>
         <H2>
-          打开会话<Platforms android ios pc />
+          2. 打开会话<Platforms android ios pc />
         </H2>
         <DemoSection>
           <TextField
@@ -125,7 +221,7 @@ api(true, '选择会话')
           <Button label="打开会话框" onClick={() => this.openSession()} />
         </DemoSection>
         <DemoSection>
-          <H2>示例代码</H2>
+          <H3>示例代码</H3>
           <Code>
             {`
 \`\`\`typescript
@@ -143,18 +239,29 @@ api().openDialog({ type: DialogType.Chat, id: userID })
 ###  selectSession
 用户获取会话id
 
-► **selectSession**(params?: *SelectSessionParams*): \`Promise\`< SelectSessionResponse>
+► **selectSession**(params?: *SelectSessionParams*): \`Promise\`<SelectSessionResponse>
 
 **Parameters:**
 
 | Param | Type | Description |
 | ------ | ------ | ------ |
-| params | SelectSessionParams   |  参数 <br/> + \`multiple\`: 表示支持多选 <br/> + \`title\`: 设置对话框的标题 |
+| params | SelectSessionParams   |  参数 |
 
 **Returns:** \`Promise\`< SelectSessionResponse>
 
 **Types:**
 \`\`\`typescript
+
+/**
+ * 会话类型
+ */
+export type SessionType =
+  | 'user'
+  | 'chatroom'
+  | 'publicAccount'
+  | 'localContact'
+  | 'visitor'
+
 /**
  * 选择会话请求参数
  */
@@ -167,15 +274,34 @@ interface SelectSessionParams {
    * 对话框显示的标题
    */
   title?: string
+  /**
+   * 选择会话的类型
+   */
+  sessionType?: SessionType[]
+  /**
+   * 限制
+   */
+  limit?: number
+  /**
+   * 已选择的会话
+   */
+  selected?: GZBSession[]
+  /**
+   * 是否可以取消已选择的会话
+   */
+  unselect?: boolean
+  tenementId?: string
 }
 
 /**
  * 选择会话响应参数
  */
-interface SelectSessionResponse {
+type SelectSessionResponse = Array<{
   sessionId: string
   sessionType: 'user' | 'chatroom'
-}
+  icon?: string
+  name?: string
+}>
 \`\`\`
 
 ---
@@ -233,6 +359,16 @@ interface DialogParams {
     )
   }
 
+  private selectSelected = async (e: React.ChangeEvent<any>) => {
+    e.preventDefault()
+    try {
+      const res = await api().selectSession()
+      this.selectSessionParams.selected = res
+    } catch (error) {
+      console.log('选择会话失败', error)
+    }
+  }
+
   private handleMultipleToggle = (e: object, checked: boolean) => {
     this.selectSessionParams.multiple = checked
   }
@@ -256,7 +392,7 @@ interface DialogParams {
     }
   }
 
-  private openSession1 = (id = this.userId, type?: 'user' | 'chatroom') => {
+  private openSession1 = (id = this.userId, type?: SessionType) => {
     api().openDialog({ type: type ? (type === 'user' ? 2 : 1) : 2, id })
   }
 

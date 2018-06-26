@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import Code from './index'
 
 const Wrapper = styled(Code)`
-  font-size: 14px;
+  font-size: 15px;
   & p,
   & blockquote,
   & ul,
