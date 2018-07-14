@@ -47,6 +47,7 @@
   "devDependencies": {
     "@types/fbemitter": "^2.0.32",
     "@types/lodash": "^4.14.72",
+    "@types/qs": "^6.5.1",
     "@types/react": "^16.0.1",
     "@types/react-dom": "^15.5.2",
     "@types/react-helmet": "^5.0.3",
@@ -106,7 +107,7 @@
     "webpack-manifest-plugin": "^1.2.1"
   },
   "dependencies": {
-    "@gdjiami/gzb-jssdk": "^1.2.1",
+    "@gdjiami/gzb-jssdk": "1.5.0",
     "@types/highlight.js": "^9.1.10",
     "@types/markdown-it": "^0.0.4",
     "@types/material-ui": "^0.18.0",
@@ -119,6 +120,7 @@
     "mobx": "^3.2.2",
     "mobx-react": "^4.2.2",
     "mobx-react-router": "^4.0.1",
+    "qs": "^6.5.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-helmet": "^5.1.3",

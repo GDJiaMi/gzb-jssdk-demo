@@ -15,6 +15,7 @@ import Platforms from 'components/Platforms'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import api, { SelectContactResponse } from '@gdjiami/gzb-jssdk'
+import { serial, deserial } from 'utils/common'
 
 const Button = styled(RaisedButton)`margin-left: 1em;`
 
@@ -25,7 +26,17 @@ interface Props {
 @observer
 export default class ShowContact extends React.Component<Props> {
   @observable private value: string = 'u116115'
+  @observable private tenementId: string
+  @observable private items: string
+  @observable private itemsError?: Error
   @observable private selectedContact: SelectContactResponse = []
+
+  public componentWillMount() {
+    const params = deserial()
+    this.tenementId = params.tenementId
+    this.items = params.items ? atob(params.items) : ''
+  }
+
   public render() {
     return (
       <div className={this.props.className}>
@@ -57,6 +68,24 @@ api.openContact(userId)
           联系人选择器<Platforms android ios pc />
         </H2>
         <DemoSection>
+          <TextField
+            hintText="输入tenementId"
+            value={this.tenementId}
+            onChange={this.handleTenementIdChange}
+            onBlur={this.saveTenement}
+          />
+          <br />
+          <TextField
+            hintText="输入items(可以在PC端编辑，然后复制链接到客户端调试)"
+            value={this.items}
+            onChange={this.handleItemsChange}
+            onBlur={this.validateItems}
+            multiLine
+            rows={8}
+            style={{ width: '100%' }}
+            errorText={this.itemsError ? this.itemsError.message : undefined}
+          />
+          <br />
           <Button label="打开" onClick={this.openContactSelector} />
           <p>
             <ul>
@@ -164,18 +193,52 @@ type SelectContactResponse = Array<{
     this.value = evt.target.value
   }
 
+  private handleTenementIdChange = (
+    evt: React.ChangeEvent<{ value: string }>,
+  ) => {
+    this.tenementId = evt.target.value
+  }
+
+  private saveTenement = () => {
+    serial({ tenementId: this.tenementId })
+  }
+
+  private validateItems = () => {
+    const jsonText = this.items
+    try {
+      this.itemsError = undefined
+      const parsed = JSON.parse(jsonText)
+      const formated = JSON.stringify(parsed, undefined, '  ')
+      this.items = formated
+      serial({ items: btoa(formated) })
+    } catch (err) {
+      this.itemsError = err
+      this.items = jsonText
+    }
+  }
+
+  private handleItemsChange = (evt: React.ChangeEvent<{ value: string }>) => {
+    const jsonText = evt.target.value
+    this.items = jsonText
+  }
+
   private showContact = () => {
     api().showContact(this.value)
   }
 
   private openContactSelector = async () => {
-    const data = await api().selectContact({
-      user: [],
-      type: 'multiple',
-      limit: 20,
-      tenementId: 't140050483060650196',
-    })
+    try {
+      const data = await api().selectContact({
+        user: [],
+        type: 'multiple',
+        limit: 20,
+        tenementId: this.tenementId,
+        items: JSON.parse(this.items),
+      })
 
-    this.selectedContact.replace(data)
+      this.selectedContact.replace(data)
+    } catch (err) {
+      console.log(err)
+    }
   }
 }

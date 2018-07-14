@@ -2,8 +2,7 @@
  * 根组件
  */
 import React from 'react'
-import { Route, RouteComponentProps, withRouter } from 'react-router-dom'
-import { observer } from 'mobx-react'
+import { Route, RouteComponentProps } from 'react-router-dom'
 import inject from 'utils/inject'
 import { asyncLoadComponent } from 'utils/asyncLoad'
 import styled from 'utils/styled-components'
@@ -58,7 +57,6 @@ interface AppProps<T = {}> extends RouteComponentProps<T> {
   AppStore: AppStore
 }
 
-@observer
 export class App extends React.Component<AppProps> {
   public render() {
     return (
@@ -180,6 +178,4 @@ export class App extends React.Component<AppProps> {
  * 导致当路由变化时对应的组件没有渲染，所以这个要使用withRouter创建路由的props，从而通过
  * shouldComponentUpdate的检验
  */
-export default withRouter(
-  inject<RouteComponentProps<{}>, AppProps>('AppStore')(App),
-)
+export default inject<RouteComponentProps<{}>, AppProps>('AppStore')(App)
