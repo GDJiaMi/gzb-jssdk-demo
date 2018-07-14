@@ -16,6 +16,7 @@ import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import api, { SelectContactResponse } from '@gdjiami/gzb-jssdk'
 import { serial, deserial } from 'utils/common'
+import lz from 'lz-string'
 
 const Button = styled(RaisedButton)`margin-left: 1em;`
 
@@ -34,7 +35,8 @@ export default class ShowContact extends React.Component<Props> {
   public componentWillMount() {
     const params = deserial()
     this.tenementId = params.tenementId
-    this.items = params.items ? atob(params.items) : ''
+    // @ts-ignore
+    this.items = params.items ? lz.decompressFromBase64(params.items) : ''
   }
 
   public render() {
@@ -210,7 +212,7 @@ type SelectContactResponse = Array<{
       const parsed = JSON.parse(jsonText)
       const formated = JSON.stringify(parsed, undefined, '  ')
       this.items = formated
-      serial({ items: btoa(formated) })
+      serial({ items: lz.compressToBase64(formated) })
     } catch (err) {
       this.itemsError = err
       this.items = jsonText

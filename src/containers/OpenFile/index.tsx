@@ -22,6 +22,7 @@ interface Props {
 @observer
 export default class OpenFile extends React.Component<Props> {
   @observable private value: string = ''
+  // @ts-ignore
   @observable private res: string = ''
   public render() {
     return (
