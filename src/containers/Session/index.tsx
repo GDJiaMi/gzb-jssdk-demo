@@ -40,8 +40,8 @@ const SessionTypeList = [
   { value: 'user', label: 'user(最近联系人(用户)，组织架构，我的好友)' },
   { value: 'chatroom', label: 'chatroom(最近联系人(群组))' },
   { value: 'publicAccount', label: 'publicAccount(公众账号)' },
-  { value: 'localContacts', label: 'localContacts(手机联系人)' },
-  { value: 'visitor', label: 'visitor(访客_' },
+  { value: 'localContact', label: 'localContact(手机联系人)' },
+  { value: 'visitor', label: 'visitor(访客)' },
 ]
 
 @observer
@@ -131,18 +131,20 @@ export default class Session extends React.Component<Props> {
           />
           <br />
           <br />
-          <label>已选中:</label>
-          <a onClick={this.selectSelected} href="#">
-            选择
-          </a>
+          <label>已选中会话:</label>
+          <br />
           {(this.selectSessionParams.selected || []).map(i => (
             <Chip key={i.sessionId}>
               {i.name}({i.sessionId}:{i.sessionType})
             </Chip>
           ))}
+          <a onClick={this.selectSelected} href="#">
+            选择
+          </a>
           <br />
           <br />
-          <Button label="选择会话" onClick={this.selectSession} />
+          <br />
+          <Button label="开始选择" onClick={this.selectSession} />
           <br />
           <br />
           <H3>请求参数</H3>
@@ -362,7 +364,10 @@ interface DialogParams {
   private selectSelected = async (e: React.ChangeEvent<any>) => {
     e.preventDefault()
     try {
-      const res = await api().selectSession()
+      const res = await api().selectSession({
+        sessionType: this.selectSessionParams.sessionType,
+        title: '选择已选',
+      })
       this.selectSessionParams.selected = res
     } catch (error) {
       console.log('选择会话失败', error)
