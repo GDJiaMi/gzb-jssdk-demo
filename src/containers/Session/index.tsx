@@ -397,7 +397,7 @@ interface DialogParams {
     }
   }
 
-  private openSession1 = (id = this.userId, type?: SessionType) => {
+  private openSession1 = (id = this.userId, type?: any) => {
     api().openDialog({ type: type ? (type === 'user' ? 2 : 1) : 2, id })
   }
 
