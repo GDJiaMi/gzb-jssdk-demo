@@ -26,6 +26,8 @@ import api, {
   SelectSessionResponse,
   BridgeResponseError,
 } from '@gdjiami/gzb-jssdk'
+import { serial, deserial } from 'utils/common'
+import lz from 'lz-string'
 /* tslint:disable:jsx-no-lambda */
 
 const Button = styled(RaisedButton)`margin-left: 1em;`
@@ -48,6 +50,8 @@ const SessionTypeList = [
 export default class Session extends React.Component<Props> {
   @observable private userId: string = 'u116115'
   @observable private type: number = 2
+  @observable private items: string
+  @observable private itemsError?: Error
   @observable
   private selectSessionParams: SelectSessionParams = {
     multiple: true,
@@ -57,8 +61,17 @@ export default class Session extends React.Component<Props> {
     unselect: true,
     tenementId: undefined,
     selected: [],
+    items: undefined,
   }
   @observable private selectedSession: SelectSessionResponse = []
+  public componentWillMount() {
+    const params = deserial()
+    // @ts-ignore
+    this.items = params.items ? lz.decompressFromBase64(params.items) : ''
+    if (this.items != null || this.items !== '') {
+      this.selectSessionParams.items = JSON.parse(this.items)
+    }
+  }
   public render() {
     return (
       <div className={this.props.className}>
@@ -128,6 +141,17 @@ export default class Session extends React.Component<Props> {
             onChange={(e: React.ChangeEvent<{ value: string }>) => {
               this.selectSessionParams.tenementId = e.target.value
             }}
+          />
+          <br />
+          <TextField
+            hintText="输入items(可以在PC端编辑，然后复制链接到客户端调试)"
+            value={this.items}
+            onChange={this.handleItemsChange}
+            onBlur={this.validateItems}
+            multiLine
+            rows={8}
+            style={{ width: '100%' }}
+            errorText={this.itemsError ? this.itemsError.message : undefined}
           />
           <br />
           <br />
@@ -359,6 +383,26 @@ interface DialogParams {
         </DemoSection>
       </div>
     )
+  }
+
+  private handleItemsChange = (evt: React.ChangeEvent<{ value: string }>) => {
+    const jsonText = evt.target.value
+    this.items = jsonText
+  }
+
+  private validateItems = () => {
+    const jsonText = this.items
+    try {
+      this.itemsError = undefined
+      const parsed = JSON.parse(jsonText)
+      const formated = JSON.stringify(parsed, undefined, '  ')
+      this.items = formated
+      serial({ items: lz.compressToBase64(formated) })
+      this.selectSessionParams.items = parsed
+    } catch (err) {
+      this.itemsError = err
+      this.items = jsonText
+    }
   }
 
   private selectSelected = async (e: React.ChangeEvent<any>) => {
