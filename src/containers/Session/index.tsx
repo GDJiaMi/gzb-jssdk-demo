@@ -68,7 +68,7 @@ export default class Session extends React.Component<Props> {
     const params = deserial()
     // @ts-ignore
     this.items = params.items ? lz.decompressFromBase64(params.items) : ''
-    if (this.items != null || this.items !== '') {
+    if (this.items != null && this.items !== '') {
       this.selectSessionParams.items = JSON.parse(this.items)
     }
   }

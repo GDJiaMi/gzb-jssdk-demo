@@ -43,6 +43,8 @@ export default class SetTitle extends React.Component<Props> {
         <DemoSection>
           <Button label="订阅关闭按钮事件" onClick={this.setupBeforeunload} />
           <Button label="取消订阅关闭按钮事件" onClick={this.teardownBeforeunload} />
+          <br />
+          <a href="https://baidu.com">测试跳转清理</a>
         </DemoSection>
         <DemoSection>
           <H2>示例代码</H2>
