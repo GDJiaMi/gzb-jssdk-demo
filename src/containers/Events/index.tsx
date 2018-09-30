@@ -28,8 +28,8 @@ export default class SetTitle extends React.Component<Props> {
   private beforeunloadDisposer: null | (() => void)
   private beforegobackDisposer: null | (() => void)
   public componentWillUnmount() {
-    this.teardownBeforegoback()
-    this.teardownBeforeunload()
+    // this.teardownBeforegoback()
+    // this.teardownBeforeunload()
   }
   public render() {
     return (
