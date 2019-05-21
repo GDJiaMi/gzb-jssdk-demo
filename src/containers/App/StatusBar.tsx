@@ -103,6 +103,9 @@ export default class StatusBar extends React.Component {
           <Link to="/menu-item">
             <MenuItem>自定义菜单</MenuItem>
           </Link>
+          <Link to="/video-upload">
+            <MenuItem>小视频录制</MenuItem>
+          </Link>
           <Divider />
           <Link to="/open-video">
             <MenuItem>(EXP)打开视频</MenuItem>

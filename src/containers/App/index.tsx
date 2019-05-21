@@ -144,6 +144,12 @@ export class App extends React.Component<AppProps> {
             path="/rpc"
             component={asyncLoadComponent(() => import('containers/RPC'))}
           />
+          <Route
+            path="/video-upload"
+            component={asyncLoadComponent(() =>
+              import('containers/VideoUpload'),
+            )}
+          />
         </Main>
         <Footer>
           <Infos>
