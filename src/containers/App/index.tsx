@@ -150,6 +150,10 @@ export class App extends React.Component<AppProps> {
               import('containers/VideoUpload'),
             )}
           />
+          <Route
+            path="/debug"
+            component={asyncLoadComponent(() => import('containers/Debug'))}
+          />
         </Main>
         <Footer>
           <Infos>

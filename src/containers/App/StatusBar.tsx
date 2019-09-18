@@ -113,6 +113,9 @@ export default class StatusBar extends React.Component {
           <Link to="/rpc">
             <MenuItem>(EXP)RPC 调试</MenuItem>
           </Link>
+          <Link to="/debug">
+            <MenuItem>(EXP)Bridge 调试</MenuItem>
+          </Link>
         </Drawer>
       </Container>
     )

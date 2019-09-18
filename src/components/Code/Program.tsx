@@ -4,10 +4,10 @@
 import React from 'react'
 import Code from './index'
 
-export default function(props: { children: string }) {
+export default function(props: { children: string; type?: string }) {
   return (
     <Code>{`
-\`\`\`typescript
+\`\`\`${props.type || 'typescript'}
 ${props.children}
 \`\`\`
   `}</Code>
