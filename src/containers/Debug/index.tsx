@@ -21,13 +21,22 @@ interface Props extends RouteComponentProps<any> {
   className?: string
 }
 
+interface Listener {
+  id: string
+  name: string
+  callback: Function
+}
+
 const HISTORY_KEY = '__rh__'
+let uid = 0
 
 @observer
 export default class OpenFile extends React.Component<Props> {
   @observable private history: Array<[string, any]> = []
   @observable private method: string = `chooseImg`
   @observable private value: string = `{maxSizeKb: 2000}`
+  @observable private eventName: string = 'Test'
+  @observable private events: Array<Listener> = []
   @observable private err?: Error = undefined
   @observable private res: string = ''
 
@@ -35,6 +44,7 @@ export default class OpenFile extends React.Component<Props> {
     const params = new URLSearchParams(this.props.location.search)
     this.method = params.get('method') || this.method
     this.value = params.get('value') || this.value
+    this.eventName = params.get('event') || this.eventName
     const h = localStorage.getItem(HISTORY_KEY)
     if (h) {
       this.history = JSON.parse(h)
@@ -45,6 +55,8 @@ export default class OpenFile extends React.Component<Props> {
   public render() {
     return (
       <div className={this.props.className}>
+        <QRCode value={location.href} />
+        <br />
         <Helmet>
           <title>Bridge 调试</title>
         </Helmet>
@@ -59,6 +71,7 @@ export default class OpenFile extends React.Component<Props> {
             onBlur={this.store}
             onChange={e => (this.method = (e.target as any).value)}
           />
+          <br />
           <TextField
             floatingLabelText="输入请求参数(JSON)"
             hintText="输入请求参数(必须是合法的JSON类型或表达式)"
@@ -75,28 +88,50 @@ export default class OpenFile extends React.Component<Props> {
           响应代码
           <Program type="json">{this.res}</Program>
           <br />
-          <QRCode value={location.href} />
+          <div>调用记录:</div>
+          <ul>
+            {this.history.map((i, idx) => {
+              const [method, payload] = i
+              const strPayload = JSON.stringify(payload, undefined, 2)
+              return (
+                <li
+                  key={idx}
+                  onClick={() => {
+                    this.method = method
+                    this.value = strPayload
+                  }}
+                >
+                  {method}: {strPayload}
+                </li>
+              )
+            })}
+          </ul>
+        </DemoSection>
+
+        <H2>
+          Bridge 事件调试 <Platforms android ios />
+        </H2>
+        <DemoSection>
+          <TextField
+            floatingLabelText="事件名"
+            value={this.eventName}
+            onChange={e => (this.eventName = (e.target as any).value)}
+          />
+          <RaisedButton label="添加订阅" onClick={this.addListener} />
           <br />
-          <H2>
-            调用记录:
-            <ul>
-              {this.history.map((i, idx) => {
-                const [method, payload] = i
-                const strPayload = JSON.stringify(payload, undefined, 2)
-                return (
-                  <li
-                    key={idx}
-                    onClick={() => {
-                      this.method = method
-                      this.value = strPayload
-                    }}
-                  >
-                    {method}: {strPayload}
-                  </li>
-                )
-              })}
-            </ul>
-          </H2>
+          <br />
+          <div>队列:</div>
+          <ul>
+            {this.events.map(i => (
+              <li>
+                {i.id}: {i.name}
+                <RaisedButton
+                  label="取消订阅"
+                  onClick={() => this.removeListener(i)}
+                />
+              </li>
+            ))}
+          </ul>
         </DemoSection>
       </div>
     )
@@ -106,7 +141,36 @@ export default class OpenFile extends React.Component<Props> {
     const params = new URLSearchParams()
     params.set('method', this.method)
     params.set('value', this.value)
+    params.set('event', this.eventName)
     history.replace(`/debug?${params}`)
+  }
+
+  private addListener = () => {
+    try {
+      let id = (uid++).toString()
+      const name = this.eventName
+      const listener = (data: any) => {
+        console.log(`${id} - ${name}: 事件响应`, data)
+      }
+      // @ts-ignore
+      window.WebViewJavascriptBridge.addListener &&
+        // @ts-ignore
+        window.WebViewJavascriptBridge.addListener(name, listener)
+      this.events.push({ name, callback: listener, id })
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  private removeListener = (i: Listener) => {
+    const idx = this.events.indexOf(i)
+    if (idx !== -1) {
+      // @ts-ignore
+      window.WebViewJavascriptBridge.removeListener &&
+        // @ts-ignore
+        window.WebViewJavascriptBridge.removeListener(i.name, i.callback)
+      this.events.splice(idx, 1)
+    }
   }
 
   private request = async () => {
