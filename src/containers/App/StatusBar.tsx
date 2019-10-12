@@ -106,6 +106,9 @@ export default class StatusBar extends React.Component {
           <Link to="/video-upload">
             <MenuItem>小视频录制</MenuItem>
           </Link>
+          <Link to="/koda">
+            <MenuItem>科达视频</MenuItem>
+          </Link>
           <Divider />
           <Link to="/open-video">
             <MenuItem>(EXP)打开视频</MenuItem>

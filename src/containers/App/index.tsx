@@ -151,6 +151,10 @@ export class App extends React.Component<AppProps> {
             )}
           />
           <Route
+            path="/koda"
+            component={asyncLoadComponent(() => import('containers/Koda'))}
+          />
+          <Route
             path="/debug"
             component={asyncLoadComponent(() => import('containers/Debug'))}
           />
