@@ -39,11 +39,20 @@ class VideoUpload extends React.Component<Props> {
       throw err
     }
   }
+
+  private hideTitle = () => {
+    RPC.getInstance().request('ui.hideTitle')
+  }
+
+  private minimize = () => {
+    RPC.getInstance().request('ui.minimize', { url: 'http://www.baidu.com' })
+  }
+
   render() {
     return (
       <div className={this.props.className}>
         <Helmet>
-          <title>VideoUpload</title>
+          <title>RPC 接口列表</title>
         </Helmet>
         <H2>
           小视频录制<Platforms ios android />
@@ -115,6 +124,35 @@ export async function chooseVideo() {
 | 504| network timeout| 网络超时。客户端上传文件过程中，没有及时从服务器收到响应，上传文件失败。|
                     `}
           </Doc>
+        </DemoSection>
+
+        <H2>
+          隐藏浏览器标题<Platforms ios android />
+        </H2>
+        <DemoSection>
+          <H2>示例代码</H2>
+          <RaisedButton label="测试" onClick={this.hideTitle} />
+          <br />
+          <Program>{`\
+import { RPC } from '@gdjiami/gzb-jssdk'
+export async function chooseVideo() {
+  RPC.getInstance().request('ui.hideTitle')
+}`}</Program>
+        </DemoSection>
+
+        <H2>
+          最小化浏览器<Platforms ios android />
+        </H2>
+
+        <DemoSection>
+          <H2>示例代码</H2>
+          <RaisedButton label="测试" onClick={this.minimize} />
+          <Program>{`\
+import { RPC } from '@gdjiami/gzb-jssdk'
+export async function chooseVideo() {
+  const url = 'http://www.baidu.com'
+  RPC.getInstance().request('ui.minimize', {url})
+}`}</Program>
         </DemoSection>
       </div>
     )
