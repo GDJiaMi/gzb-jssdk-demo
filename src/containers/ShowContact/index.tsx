@@ -14,6 +14,7 @@ import DemoSection from 'components/DemoSection'
 import Platforms from 'components/Platforms'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
+import Toggle from 'material-ui/Toggle'
 import api, { SelectContactResponse } from '@gdjiami/gzb-jssdk'
 import { serial, deserial } from 'utils/common'
 import lz from 'lz-string'
@@ -28,7 +29,38 @@ interface Props {
 export default class ShowContact extends React.Component<Props> {
   @observable private value: string = 'u116115'
   @observable private tenementId: string
-  @observable private items: string
+  @observable
+  private items: string = `
+  [
+  {
+    "id": "1",
+    "order": 0,
+    "name": "Test",
+    "groups": [
+      {
+        "id": "1",
+        "name": "分组1",
+        "order": 0,
+        "children": [
+          {
+            "id": "1",
+            "name": "用户1",
+            "order": 0,
+            "subtitle": "开发工程师"
+          },
+          {
+            "id": "2",
+            "name": "用户2",
+            "order": 1,
+            "subtitle": "开发工程师3"
+          }
+        ]
+      }
+    ]
+  }
+]
+  `
+  @observable private onlyShowItems: boolean = false
   @observable private itemsError?: Error
   @observable private selectedContact: SelectContactResponse = []
 
@@ -36,7 +68,9 @@ export default class ShowContact extends React.Component<Props> {
     const params = deserial()
     this.tenementId = params.tenementId
     // @ts-ignore
-    this.items = params.items ? lz.decompressFromBase64(params.items) : ''
+    this.items = params.items
+      ? lz.decompressFromBase64(params.items)
+      : this.items
   }
 
   public render() {
@@ -46,7 +80,8 @@ export default class ShowContact extends React.Component<Props> {
           <title>联系人</title>
         </Helmet>
         <H2>
-          打开名片<Platforms android ios pc />
+          打开名片
+          <Platforms android ios pc />
         </H2>
         <DemoSection>
           <TextField
@@ -67,7 +102,8 @@ api.openContact(userId)
           </Program>
         </DemoSection>
         <H2>
-          联系人选择器<Platforms android ios pc />
+          联系人选择器
+          <Platforms android ios pc />
         </H2>
         <DemoSection>
           <TextField
@@ -86,6 +122,13 @@ api.openContact(userId)
             rows={8}
             style={{ width: '100%' }}
             errorText={this.itemsError ? this.itemsError.message : undefined}
+          />
+          <Toggle
+            label="只显示自定义组织items"
+            toggled={this.onlyShowItems}
+            onToggle={(e, c) => {
+              this.onlyShowItems = c
+            }}
           />
           <br />
           <Button label="打开" onClick={this.openContactSelector} />
@@ -236,6 +279,7 @@ type SelectContactResponse = Array<{
         limit: 20,
         tenementId: this.tenementId,
         items: JSON.parse(this.items),
+        onlyShowItems: this.onlyShowItems,
       })
 
       this.selectedContact.replace(data)
