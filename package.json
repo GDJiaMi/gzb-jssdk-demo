@@ -85,7 +85,7 @@
     "postcss-loader": "^2.0.6",
     "prettier": "^1.6.1",
     "qr-image": "^3.2.0",
-    "react-dev-utils": "^3.0.2",
+    "react-dev-utils": "^11.0.4",
     "react-error-overlay": "^1.0.9",
     "react-hot-loader": "next",
     "serve": "^6.0.6",
