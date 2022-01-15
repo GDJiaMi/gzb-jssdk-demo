@@ -89,7 +89,7 @@
     "react-error-overlay": "^1.0.9",
     "react-hot-loader": "next",
     "serve": "^6.0.6",
-    "shelljs": "^0.7.8",
+    "shelljs": "^0.8.5",
     "source-map-loader": "^0.2.1",
     "style-loader": "^0.18.2",
     "stylelint": "^8.0.0",
